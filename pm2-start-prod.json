@@ -1,0 +1,14 @@
+{
+    "apps": {
+        "name": "ynov-api-prod",
+        "script": "npm",
+        "args": [
+            "run",
+            "start"
+        ],
+        "env": {
+            "port": "3100",
+            "production": "true"
+        }
+    }
+}
