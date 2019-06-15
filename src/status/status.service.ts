@@ -1,29 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { PanneDTO as Panne } from "./panne";
+import { StatusDTO as Status } from "./status";
 
 @Injectable()
-export class PanneService {
-    fullUpdatePanne(panneDTO: Panne) {
+export class StatusService {
+    fullUpdateStatus(statusDTO: Status) {
         return 'This call returns \PATCH request';
     }
-    insertPanne(panneDTO: Panne) {
+    insertStatus(statusDTO: Status) {
         return 'This call returns \POST request';
     }
-    updatePanne(panneDTO: Panne) {
+    updateStatus(statusDTO: Status) {
         return 'This call returns \PUT request';
     }
-    addPanne(myDTO: Panne) {
+    addStatus(myDTO: Status) {
         return myDTO;
     }
-    deletePanne(id: string) {
+    deleteStatus(id: string) {
         return 'This call returns \DELETE request';
     }
-    getPanne(id: string): string {
+    getStatus(id: string): string {
         return JSON.stringify({
             '_id': id
         })
     }
-    getAllPanne(): string {
+    getAllStatus(): string {
         return 'This call returns \GET_All request';
     }
 }

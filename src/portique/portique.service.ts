@@ -15,7 +15,7 @@ export class PortiqueService {
     addPortique(myDTO: Portique) {
         return myDTO;
     }
-    deletePortique(userId: string) {
+    deletePortique(id: string) {
         return 'This call returns \DELETE request';
     }
     getPortique(id: string): string {
