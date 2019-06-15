@@ -8,11 +8,12 @@ import { StatusModule } from "./status/status.module";
 import { ProgrammeModule } from "./programme/programme.module";
 import { OperateurModule } from "./operateur/operateur.module";
 import { FrequentationModule } from "./frequentation/frequentation.module";
+import { CompteModule } from "./compte/compte.module";
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth-role.guard';
 
 @Module({
-  imports: [PersonneModule, PortiqueModule, PanneModule, StatusModule, ProgrammeModule, OperateurModule, FrequentationModule],
+  imports: [PersonneModule, PortiqueModule, PanneModule, StatusModule, ProgrammeModule, OperateurModule, FrequentationModule, CompteModule],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: RolesGuard }],
 })
