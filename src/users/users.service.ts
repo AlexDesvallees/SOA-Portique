@@ -18,16 +18,12 @@ export class UserService {
     }
 
     async getUser(userid : number): Promise<UserDTO[]> {
-        console.log(userid);
-        return await this.usersRepository.find({
-            select: ["personne_id"],
-            where: [{ "personne_id": userid }]
-        }); 
+        return await this.usersRepository.query("SELECT * FROM Personne WHERE personne_id = " + userid);
     }
     
 
     async getUsers(): Promise<UserDTO[]> {
-        return await this.usersRepository.find();
+        return await this.usersRepository.query("SELECT * FROM Personne");
     }
 
     // json = {

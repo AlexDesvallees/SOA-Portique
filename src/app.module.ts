@@ -14,6 +14,7 @@ import { CompteModule } from "./compte/compte.module";
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth-role.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Connection } from 'typeorm';
 
 @Module({
   imports: [
@@ -34,4 +35,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       useClass: RolesGuard
     }],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private readonly connection: Connection) {}
+}
