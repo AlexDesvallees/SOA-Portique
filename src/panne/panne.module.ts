@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { PanneController } from '../panne/panne.controller';
-import { PanneService } from '../panne/panne.service';
+import { PanneController } from './panne.controller';
+import { PanneService } from './panne.service';
 
 @Module({
   imports: [],

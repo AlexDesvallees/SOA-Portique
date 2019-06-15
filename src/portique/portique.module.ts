@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { PortiqueController } from '../portique/portique.controller';
-import { PortiqueService } from '../portique/portique.service';
+import { PortiqueController } from './portique.controller';
+import { PortiqueService } from './portique.service';
 
 @Module({
   imports: [],

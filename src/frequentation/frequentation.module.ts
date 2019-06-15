@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { FrequentationController } from '../frequentation/frequentation.controller';
-import { FrequentationService } from '../frequentation/frequentation.service';
+import { FrequentationController } from './frequentation.controller';
+import { FrequentationService } from './frequentation.service';
 
 @Module({
   imports: [],
