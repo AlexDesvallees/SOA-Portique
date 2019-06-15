@@ -1,13 +1,13 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 
 // @ApiModel({description: 'test'})
-export class UserDTO {
+export class PersonneDTO {
   @ApiModelProperty()
-  readonly userId: number;
+  readonly personne_id: number;
 
   @ApiModelProperty()
-  readonly name: string;
+  readonly nom: string;
 
   @ApiModelProperty()
-  readonly surname: string;
+  readonly prenom: string;
 }

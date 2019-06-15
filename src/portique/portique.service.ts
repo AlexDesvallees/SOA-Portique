@@ -3,29 +3,27 @@ import { PortiqueDTO as Portique } from "./portique";
 
 @Injectable()
 export class PortiqueService {
-    addUser(myDTO: Portique) {
+    fullUpdatePortique(portiqueDTO: Portique) {
+        return 'This call returns \PATCH request';
+    }
+    insertPortique(portiqueDTO: Portique) {
+        return 'This call returns \POST request';
+    }
+    updatePortique(portiqueDTO: Portique) {
+        return 'This call returns \PUT request';
+    }
+    addPortique(myDTO: Portique) {
         return myDTO;
     }
-    deleteUser(userId: string) {
-        throw new Error("Method not implemented.");
+    deletePortique(userId: string) {
+        return 'This call returns \DELETE request';
     }
-    getUser(userid: string): string {
+    getPortique(id: string): string {
         return JSON.stringify({
-            'name': 'test',
-            'surname': 'world'
-        });
+            '_id': id
+        })
     }
-    getAllUsers(): string {
-        return JSON.stringify({
-            'name': 'hello',
-            'surname': 'world'
-        });
-    }
-
-    getJohn() {
-        return JSON.stringify({
-            'name': 'John',
-            'surname': 'TOTO'
-        });
+    getAllPortique(): string {
+        return 'This call returns \GET_All request';
     }
 }
