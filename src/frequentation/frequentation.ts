@@ -1,5 +1,5 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-import { PersonneDTO } from "../users/user";
+import { UserDTO } from "../users/user.entity";
 import { PortiqueDTO } from "../portique/portique";
 
 /**
@@ -14,7 +14,7 @@ export class FrequentationDTO {
     readonly portique_id: PortiqueDTO["portique_id"];
 
     @ApiModelProperty()
-    readonly personne_id: PersonneDTO["personne_id"];
+    readonly personne_id: UserDTO["personne_id"];
 
     @ApiModelProperty()
     readonly date_freq: Date;

@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata } from '@nestjs/common';
-import { PersonneService } from "./users.service";
-import { PersonneDTO as Personne} from "./user";
+import { UserService } from "./users.service";
+import { UserDTO } from "./user.entity";
 import { ApiUseTags, ApiImplicitBody, ApiBearerAuth } from '@nestjs/swagger';
 // import { RolesGuard } from '../auth-role.guard';
 // import { Roles } from '../roles.decorator';
@@ -8,12 +8,12 @@ import { ApiUseTags, ApiImplicitBody, ApiBearerAuth } from '@nestjs/swagger';
 // @UseGuards(RolesGuard)
 // @ApiBearerAuth()
 @Controller("/users")
-export class PersonneController {
-    constructor(private readonly userService: PersonneService) {}
+export class UserController {
+    constructor(private readonly userService: UserService) {}
 
     @ApiUseTags('Users')
     @Get(':userId')
-    getFirstUser(@Param('userId') userid : string, @Query('limit') limit = 10) : string {
+    getFirstUser(@Param('userId') userid : number, @Query('limit') limit = 10){
         // console.log(userid);
         // if(userid === '1'){
         //     return this.usersService.getJohn();
@@ -25,14 +25,14 @@ export class PersonneController {
     @ApiUseTags('Users')
     @Get()
     getAllUsers(){
-        return this.userService.getAllUsers();
+        return this.userService.getUsers();
     }
 
-    @ApiImplicitBody({name : 'UserDTO', description: 'This is the post method', required: true, type : Personne} )
+    @ApiImplicitBody({name : 'UserDTO', description: 'This is the post method', required: true, type : UserDTO} )
     @ApiUseTags('Users')
     // @Roles('admin')
     @Post()
-    addUser(@Body() userDTO : Personne){
+    addUser(@Body() userDTO : UserDTO){
         return this.userService.addUser(userDTO);
     }
 

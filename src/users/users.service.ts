@@ -1,25 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { PersonneDTO as Personne } from "./user";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UserDTO } from './user.entity';
+
 
 @Injectable()
-export class PersonneService {
-    addUser(myDTO : Personne) {
+export class UserService {
+
+    constructor(@InjectRepository(UserDTO) private usersRepository: Repository<UserDTO>) { }
+
+    addUser(myDTO : UserDTO) {
         return myDTO;
     }
     deleteUser(userId: string) {
         throw new Error("Method not implemented.");
     }
-    getUser(userid : string): string {
-        return JSON.stringify({
-            'name': 'test',
-            'surname': 'world'
+    async getUser(userid : number): Promise<UserDTO[]> {
+        return await this.usersRepository.find({
+            select: ["personne_id", "status_id", "compte_id", "nom", "prenom", "isBlocked"],
+            where: [{ "personne_id": userid }]
         }); 
     }
-    getAllUsers(): string {
-        return JSON.stringify({
-            'name': 'hello',
-            'surname': 'world'
-        });
+    
+
+    async getUsers(): Promise<UserDTO[]> {
+        return await this.usersRepository.find();
     }
 
     // json = {
