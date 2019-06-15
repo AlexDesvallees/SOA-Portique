@@ -12,7 +12,7 @@ export class UsersController {
     //#region Get
     @ApiUseTags('Portiques')
     @Get(':userId')
-    getFirstUser(@Param('userId') userid : string, @Query('limit') limit = 10) : string {
+    getUser(@Param('userId') userid : string, @Query('limit') limit = 10) : string {
             return this.portiqueService.getUser(userid);
     }
 
