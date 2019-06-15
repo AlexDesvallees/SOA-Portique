@@ -3,20 +3,20 @@ import { StatusService } from "./status.service";
 import { StatusDTO as Status } from "./Status";
 import { ApiUseTags } from '@nestjs/swagger';
 
-@Controller("/Statuss")
+@Controller("/Status")
 export class StatusController {
     //#region Constructor
     constructor(private readonly statusService: StatusService) {}
     //#endregion
     
     //#region Get
-    @ApiUseTags('Statuss')
+    @ApiUseTags('Status')
     @Get(':id')
     getStatus(@Param('id') id : string, @Query('limit') limit = 10) : string {
             return this.statusService.getStatus(id);
     }
 
-    @ApiUseTags('Statuss')
+    @ApiUseTags('Status')
     @Get()
     getAllStatus(){
         return this.statusService.getAllStatus();
@@ -24,7 +24,7 @@ export class StatusController {
     //#endregion
 
     //#region Post
-    @ApiUseTags('Statuss')
+    @ApiUseTags('Status')
     @Post()
     addStatus(@Body() StatusDTO : Status){
         return this.statusService.addStatus(StatusDTO);
@@ -32,7 +32,7 @@ export class StatusController {
     //#endregion
 
     //#region Patch
-    @ApiUseTags('Statuss')
+    @ApiUseTags('Status')
     @Patch()
     fullUpdateStatus(@Body() StatusDTO : Status){
         return this.statusService.fullUpdateStatus(StatusDTO);
@@ -40,7 +40,7 @@ export class StatusController {
     //#endregion
     
     //region put
-    @ApiUseTags('Statuss')
+    @ApiUseTags('Status')
     @Put(':id')
     updateStatus(@Body() StatusDTO : Status){
         return this.statusService.updateStatus(StatusDTO);
@@ -48,7 +48,7 @@ export class StatusController {
     //endregion
 
     //#region Delete
-    @ApiUseTags('Statuss')
+    @ApiUseTags('Status')
     @Delete(':id')
     deleteStatus(@Param('id') id : string){
         return this.statusService.deleteStatus(id);

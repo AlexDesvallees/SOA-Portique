@@ -5,12 +5,13 @@ import { PersonneModule } from "./users/users.module";
 import { PortiqueModule } from "./portique/portique.module";
 import { PanneModule } from "./panne/panne.module";
 import { StatusModule } from "./status/status.module";
+import { ProgrammeModule } from "./programme/programme.module";
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth-role.guard';
 
 @Module({
-  imports: [PersonneModule, PortiqueModule, PanneModule, StatusModule],
+  imports: [PersonneModule, PortiqueModule, PanneModule, StatusModule, ProgrammeModule],
   controllers: [AppController],
-  providers: [AppService, {provide: APP_GUARD, useClass: RolesGuard}],
+  providers: [AppService, { provide: APP_GUARD, useClass: RolesGuard }],
 })
-export class AppModule {}
+export class AppModule { }
