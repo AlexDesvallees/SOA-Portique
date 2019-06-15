@@ -1,0 +1,22 @@
+[
+    {
+        "type": "mysql",
+        "host": "localhost",
+        "port": 3306,
+        "username": "root",
+        "password": "",
+        "database": "soa_portique",
+        "entities": ["src/**/*.entity{.ts,.js}"],
+        "synchronize": true
+    },
+    {
+        "type": "mysql",
+        "host": "localhost",
+        "port": 3307,
+        "username": "root",
+        "password": "",
+        "database": "soa_personne",
+        "entities": ["src/**/*.entity{.ts,.js}"],
+        "synchronize": true
+    }
+]
