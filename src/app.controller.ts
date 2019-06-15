@@ -6,9 +6,9 @@ import { ApiUseTags } from '@nestjs/swagger';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @ApiUseTags('AppDefault')
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+  // @ApiUseTags('AppDefault')
+  // @Get()
+  // getHello(): string {
+  //   return this.appService.getHello();
+  // }
 }

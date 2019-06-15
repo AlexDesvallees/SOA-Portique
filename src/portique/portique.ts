@@ -1,4 +1,5 @@
 import { ApiModelProperty } from "@nestjs/swagger";
+import { OperateurDTO as Operateur } from "../operateur/operateur";
 
 /**
  * DTO pour l'objet Portique
@@ -8,16 +9,7 @@ export class PortiqueDTO {
     readonly portique_id: number;
 
     @ApiModelProperty()
-    readonly operateur_id: number;
-
-    @ApiModelProperty()
-    readonly frequentation_id: number;
-
-    @ApiModelProperty()
-    readonly programme_id: number;
-
-    @ApiModelProperty()
-    readonly panne_id: number;
+    readonly operateur_id: Operateur["operateur_id"];
 
     @ApiModelProperty()
     readonly adresse: string;

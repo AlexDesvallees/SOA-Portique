@@ -12,14 +12,14 @@ async function bootstrap() {
   const options = new DocumentBuilder()
   .setTitle('API SOA-Portiques')
   .setDescription('The API for the SOA-Portiques Project !!')
-  .setVersion('1.0')
-  .addTag('Users')
-  .addTag('AppDefault')
+  .setVersion('0.2')
   .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
   // await app.listen(process.env.port);
-  await app.listen(3000);
+  const port = 3000;
+  console.log("Server listening on port " + port);
+  await app.listen(port);
 }
 bootstrap();
