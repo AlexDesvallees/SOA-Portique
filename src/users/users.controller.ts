@@ -13,7 +13,7 @@ export class UserController {
 
     @ApiUseTags('Users')
     @Get(':userId')
-    getFirstUser(@Param('userId') userid : number, @Query('limit') limit = 10){
+    getUser(@Param('userId') userid : number, @Query('limit') limit = 10){
         // console.log(userid);
         // if(userid === '1'){
         //     return this.usersService.getJohn();
@@ -24,7 +24,7 @@ export class UserController {
 
     @ApiUseTags('Users')
     @Get()
-    getAllUsers(){
+    getUsers(){
         return this.userService.getUsers();
     }
 

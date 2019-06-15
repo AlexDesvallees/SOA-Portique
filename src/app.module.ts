@@ -13,10 +13,7 @@ import { CompteModule } from "./compte/compte.module";
 //#endregion
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth-role.guard';
-
-//Connexion MySQL
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Connection, EntityManager } from 'typeorm'; //Voir si EntityManager est utile sinon le virer
 
 @Module({
   imports: [
@@ -37,6 +34,4 @@ import { Connection, EntityManager } from 'typeorm'; //Voir si EntityManager est
       useClass: RolesGuard
     }],
 })
-export class AppModule { 
-  constructor(private readonly connection: Connection, private readonly entityManager: EntityManager) {}
-}
+export class AppModule {}

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 import { ApiModelProperty } from '@nestjs/swagger';
 
 /**
@@ -6,7 +6,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
  */
 
 @Entity()
-export class UserDTO extends BaseEntity {
+export class UserDTO {
   @ApiModelProperty()
   @PrimaryGeneratedColumn()
   personne_id: number;

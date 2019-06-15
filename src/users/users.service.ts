@@ -12,12 +12,15 @@ export class UserService {
     addUser(myDTO : UserDTO) {
         return myDTO;
     }
-    deleteUser(userId: string) {
-        throw new Error("Method not implemented.");
+
+    async deleteUser(userId: string) {
+        return await this.usersRepository.delete(userId)
     }
+
     async getUser(userid : number): Promise<UserDTO[]> {
+        console.log(userid);
         return await this.usersRepository.find({
-            select: ["personne_id", "status_id", "compte_id", "nom", "prenom", "isBlocked"],
+            select: ["personne_id"],
             where: [{ "personne_id": userid }]
         }); 
     }
