@@ -9,8 +9,8 @@ export class UserService {
 
     constructor(@InjectRepository(UserDTO) private usersRepository: Repository<UserDTO>) { }
 
-    addUser(myDTO : UserDTO) {
-        return myDTO;
+    async addUser(myDTO : UserDTO) {
+        return await this.usersRepository.insert(myDTO);
     }
 
     async deleteUser(userId: string) {
@@ -25,18 +25,4 @@ export class UserService {
     async getUsers(): Promise<UserDTO[]> {
         return await this.usersRepository.query("SELECT * FROM Personne");
     }
-
-    // json = {
-    //     'name': "test",
-    //     'surname': "test",
-    //     'var': 'test'
-    // }
-
-  getJohn() {
-    return JSON.stringify({
-        'name': 'John',
-        'surname': 'TOTO'
-    });
-    // return this.json;
-  }
 }

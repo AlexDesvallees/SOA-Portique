@@ -14,12 +14,7 @@ export class UserController {
     @ApiUseTags('Users')
     @Get(':userId')
     getUser(@Param('userId') userid : number, @Query('limit') limit = 10){
-        // console.log(userid);
-        // if(userid === '1'){
-        //     return this.usersService.getJohn();
-        // } else {
             return this.userService.getUser(userid);
-        // }
     }
 
     @ApiUseTags('Users')
