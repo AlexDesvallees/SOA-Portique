@@ -10,7 +10,9 @@ export class UserService {
     constructor(@InjectRepository(UserDTO) private usersRepository: Repository<UserDTO>) { }
 
     async addUser(myDTO : UserDTO) {
-        return await this.usersRepository.insert(myDTO);
+        // Alex - Trouver dans PostMan comment envoyer un DTO
+        // return await this.usersRepository.insert(myDTO);
+        return await this.usersRepository.query("INSERT INTO Personne VALUES ('"+ myDTO.personne_id +"', '"+ myDTO.status_id +"', '"+ myDTO.compte_id +"', '"+ myDTO.nom +"', '"+ myDTO.prenom +"', '"+ myDTO.isBlocked +"')");
     }
 
     async deleteUser(userId: string) {
