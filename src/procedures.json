@@ -1,0 +1,12 @@
+{
+    "procedures": [
+        {
+            "name": "Lect_Personne",
+            "request": "SELECT * FROM soa_personne.Personne WHERE personne_id = ?"
+        },
+        {
+            "name": "Lect_Liste_Personne",
+            "request": "SELECT * FROM Personne"
+        }
+    ]
+}
