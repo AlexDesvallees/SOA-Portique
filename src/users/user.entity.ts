@@ -7,7 +7,6 @@ import { ApiModelProperty } from '@nestjs/swagger';
 
 @Entity()
 export class UserDTO {
-  @ApiModelProperty()
   @PrimaryGeneratedColumn()
   personne_id: number;
 
