@@ -1,29 +1,40 @@
 import { Injectable } from '@nestjs/common';
 import { OperateurDTO as Operateur } from "./operateur.entity";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class OperateurService {
-    fullUpdateOperateur(operateurDTO: Operateur) {
-        return 'This call returns \PATCH request';
+
+    constructor(@InjectRepository(Operateur) private operateurRepository: Repository<Operateur>) { }
+
+    async fullUpdateOperateur(id:number, operateur: Operateur) {
+        return await this.operateurRepository
+        .query('UPDATE Personne SET nom = ?, prenom = ? WHERE operateur_id = ?',
+        [operateur.nom, operateur.prenom, id]);
     }
-    insertOperateur(operateurDTO: Operateur) {
-        return 'This call returns \POST request';
+
+    async updateOperateur(id: number, operateur: Operateur) {
+        return await this.operateurRepository
+        .query('UPDATE Personne SET nom = ?, prenom = ? WHERE operateur_id = ?',
+        [operateur.nom, operateur.prenom, id]);
     }
-    updateOperateur(operateurDTO: Operateur) {
-        return 'This call returns \PUT request';
+
+    async addOperateur(operateur: Operateur) {
+        return await this.operateurRepository
+        .query('INSERT INTO Operateur (nom, prenom) VALUES (?,?)',
+        [operateur.nom, operateur.prenom]);
     }
-    addOperateur(myDTO: Operateur) {
-        return myDTO;
+
+    async deleteOperateur(id: string) {
+        return this.operateurRepository.delete(id);
     }
-    deleteOperateur(id: string) {
-        return 'This call returns \DELETE request';
+
+    async getOperateur(id: number){
+        return await this.operateurRepository.query('SELECT * FROM Operateur WHERE operateur_id = ' + id)
     }
-    getOperateur(id: string): string {
-        return JSON.stringify({
-            '_id': id
-        })
-    }
-    getAllOperateur(): string {
-        return 'This call returns \GET_All request';
+
+    async getAllOperateur(){
+        return await this.operateurRepository.query('SELECT * FROM Operateur');
     }
 }

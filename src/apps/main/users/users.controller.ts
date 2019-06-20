@@ -31,12 +31,6 @@ export class UserController {
         return this.userService.addUser(userDTO);
     }
 
-    // @ApiUseTags('Users')
-    // @Patch(':userId')
-    // updateUser(@Param('userId') userId : number){
-    //     return this.userService.updateUser(userId);
-    // }
-
     @ApiUseTags('Users')
     @Delete(':userId')
     deleteUser(@Param('userId') userId : number){

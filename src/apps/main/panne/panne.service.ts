@@ -1,29 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { PanneDTO as Panne } from "./panne.entity";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PanneService {
-    fullUpdatePanne(panneDTO: Panne) {
-        return 'This call returns \PATCH request';
+
+    constructor(@InjectRepository(Panne) private panneRepository: Repository<Panne>) { }
+
+    async addPanne(panne: Panne) {
+        return await this.panneRepository
+        .query('INSERT INTO Panne (portique_id, type_panne, date_panne) VALUES (?,?,?)',
+        [panne.portique_id, panne.type_panne, panne.date_panne]);
     }
-    insertPanne(panneDTO: Panne) {
-        return 'This call returns \POST request';
+
+    async updatePanne(id: number, panne: Panne){
+        return await this.panneRepository
+        .query('UPDATE Panne SET portique_id = ?, type_panne = ?, date_panne = ? WHERE panne_id = ?',
+        [panne.portique_id, panne.type_panne, panne.date_panne, id]);
     }
-    updatePanne(panneDTO: Panne) {
-        return 'This call returns \PUT request';
+
+    async deletePanne(panneId: number) {
+        return await this.panneRepository.delete(panneId);
     }
-    addPanne(myDTO: Panne) {
-        return myDTO;
+
+    async getPanne(panneId: number){
+        return await this.panneRepository.query('SELECT * FROM Panne WHERE panne_id = ' + panneId);
     }
-    deletePanne(id: string) {
-        return 'This call returns \DELETE request';
-    }
-    getPanne(id: string): string {
-        return JSON.stringify({
-            '_id': id
-        })
-    }
-    getAllPanne(): string {
-        return 'This call returns \GET_All request';
+
+    async getAllPanne(){
+        return await this.panneRepository.query('SELECT * FROM Panne');
     }
 }

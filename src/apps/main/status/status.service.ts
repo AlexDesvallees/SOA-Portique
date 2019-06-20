@@ -8,9 +8,9 @@ export class StatusService {
 
     constructor(@InjectRepository(Status) private statusRepository: Repository<Status>) { }
 
-    async updateStatus(status: Status) {
+    async updateStatus(id: number, status: Status) {
         return await this.statusRepository
-        .query('UPDATE Status SET role = ? WHERE status_id = ?', [status.role, status.status_id]);
+        .query('UPDATE Status SET role = ? WHERE status_id = ?', [status.role, id]);
     }
 
     async addStatus(status: Status) {

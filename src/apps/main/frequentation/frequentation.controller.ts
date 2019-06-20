@@ -12,7 +12,7 @@ export class FrequentationController {
     //#region Get
     @ApiUseTags('Frequentations')
     @Get(':id')
-    getFrequentation(@Param('id') id : string, @Query('limit') limit = 10) : string {
+    getFrequentation(@Param('id') id : number, @Query('limit') limit = 10){
             return this.frequentationService.getFrequentation(id);
     }
 
@@ -33,24 +33,24 @@ export class FrequentationController {
 
     //#region Patch
     @ApiUseTags('Frequentations')
-    @Patch()
-    fullUpdateFrequentation(@Body() FrequentationDTO : Frequentation){
-        return this.frequentationService.fullUpdateFrequentation(FrequentationDTO);
+    @Put(':id')
+    fullUpdateFrequentation(@Param('id') id : number, @Body() FrequentationDTO : Frequentation){
+        return this.frequentationService.fullUpdateFrequentation(id, FrequentationDTO);
     }
     //#endregion
     
     //region put
     @ApiUseTags('Frequentations')
-    @Put(':id')
-    updateFrequentation(@Body() FrequentationDTO : Frequentation){
-        return this.frequentationService.updateFrequentation(FrequentationDTO);
+    @Patch(':id')
+    updateFrequentation(@Param('id') id : number, @Body() FrequentationDTO : Frequentation){
+        return this.frequentationService.updateFrequentation(id, FrequentationDTO);
     }
     //endregion
 
     //#region Delete
     @ApiUseTags('Frequentations')
     @Delete(':id')
-    deleteFrequentation(@Param('id') id : string){
+    deleteFrequentation(@Param('id') id : number){
         return this.frequentationService.deleteFrequentation(id);
     }
     //endregion

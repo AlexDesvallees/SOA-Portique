@@ -1,29 +1,45 @@
 import { Injectable } from '@nestjs/common';
 import { FrequentationDTO as Frequentation } from "./frequentation.entity";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class FrequentationService {
-    fullUpdateFrequentation(frequentationDTO: Frequentation) {
-        return 'This call returns \PATCH request';
+
+    constructor(@InjectRepository(Frequentation) private frequentationRepository: Repository<Frequentation>) { }
+
+    async fullUpdateFrequentation(id: number, frequentationDTO: Frequentation) {
+        return await this.frequentationRepository
+        .query('UPDATE Frequentation SET portique_id = ?, personne_id = ?, date_freq = ?, nb_pers_freq WHERE frequentation_id = ?',
+        [frequentationDTO.portique_id, frequentationDTO.personne_id,
+            frequentationDTO.date_freq, frequentationDTO.nb_pers_freq, id]);
     }
-    insertFrequentation(frequentationDTO: Frequentation) {
-        return 'This call returns \POST request';
+
+    async updateFrequentation(id: number, frequentationDTO: Frequentation) {
+        return await this.frequentationRepository
+        .query('UPDATE Frequentation SET portique_id = ?, personne_id = ?, date_freq = ?, nb_pers_freq WHERE frequentation_id = ?',
+        [frequentationDTO.portique_id, frequentationDTO.personne_id,
+            frequentationDTO.date_freq, frequentationDTO.nb_pers_freq, id]);
     }
-    updateFrequentation(frequentationDTO: Frequentation) {
-        return 'This call returns \PUT request';
+
+    async addFrequentation(frequentationDTO: Frequentation) {
+        return await this.frequentationRepository
+        .query('INSERT INTO Frequentation (portique_id, personne_id, date_freq, nb_pers_freq) VALUES (?,?,?,?)',
+        [frequentationDTO.portique_id, frequentationDTO.personne_id,
+            frequentationDTO.date_freq, frequentationDTO.nb_pers_freq]);
     }
-    addFrequentation(myDTO: Frequentation) {
-        return myDTO;
+
+    async deleteFrequentation(id: number) {
+        return await this.frequentationRepository.delete(id);
     }
-    deleteFrequentation(id: string) {
-        return 'This call returns \DELETE request';
+
+    async getFrequentation(id: number){
+        return await this.frequentationRepository
+        .query('SELECT * FROM Frequentation WHERE frequentation_id = ' + id); 
     }
-    getFrequentation(id: string): string {
-        return JSON.stringify({
-            '_id': id
-        })
-    }
-    getAllFrequentation(): string {
-        return 'This call returns \GET_All request';
+
+    async getAllFrequentation(){
+        return await this.frequentationRepository
+        .query('SELECT * FROM Frequentation');
     }
 }

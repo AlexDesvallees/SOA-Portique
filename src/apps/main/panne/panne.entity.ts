@@ -1,19 +1,24 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-import { PortiqueDTO } from "../portique/portique.entity";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 /**
  * DTO pour l'objet Panne
  */
+@Entity()
 export class PanneDTO {
-    @ApiModelProperty()
+
+    @PrimaryGeneratedColumn()
     readonly panne_id: number;
 
     @ApiModelProperty()
-    readonly portique_id: PortiqueDTO["portique_id"];
+    @Column('int')
+    portique_id: number;
 
     @ApiModelProperty()
-    readonly type_panne: string;
+    @Column({length : 50})
+    type_panne: string;
 
     @ApiModelProperty()
-    readonly date_panne: Date;
+    @Column({length : 50})
+    date_panne: string;
 }

@@ -1,29 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import { ProgrammePortiqueDTO as Programme_Portique } from "./programme_portique.entity";
+import { ProgrammePortiqueDTO as L_Programme_Portique } from "./programme_portique.entity";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class Programme_PortiqueService {
-    fullUpdateProgramme_Portique(programme_PortiqueDTO: Programme_Portique) {
-        return 'This call returns \PATCH request';
+
+    constructor(@InjectRepository(L_Programme_Portique) private programmePortiqueRepository: Repository<L_Programme_Portique>) { }
+
+    async fullUpdateProgramme_Portique(id: number, programme_PortiqueDTO: L_Programme_Portique) {
+        return await this.programmePortiqueRepository
+        .query('UPDATE L_Programme_Portique SET programme_id = ?, portique_id WHERE programme_portique_id = ?',
+        [programme_PortiqueDTO.programme_id, programme_PortiqueDTO.portique_id, id]);
     }
-    insertProgramme_Portique(programme_PortiqueDTO: Programme_Portique) {
-        return 'This call returns \POST request';
+
+    async updateProgramme_Portique(id: number, programme_PortiqueDTO: L_Programme_Portique) {
+        return await this.programmePortiqueRepository
+        .query('UPDATE L_Programme_Portique SET programme_id = ?, portique_id WHERE programme_portique_id = ?',
+        [programme_PortiqueDTO.programme_id, programme_PortiqueDTO.portique_id, id]);
     }
-    updateProgramme_Portique(programme_PortiqueDTO: Programme_Portique) {
-        return 'This call returns \PUT request';
+
+    async addProgramme_Portique(programme_PortiqueDTO: L_Programme_Portique) {
+        return await this.programmePortiqueRepository
+        .query('INSERT INTO L_Programme_Portique (programme_id, portique_id) VALUES (?,?)',
+        [programme_PortiqueDTO.programme_id, programme_PortiqueDTO.portique_id]);
     }
-    addProgramme_Portique(myDTO: Programme_Portique) {
-        return myDTO;
+
+    async deleteProgramme_Portique(id: number) {
+        return await this.programmePortiqueRepository.delete(id);
     }
-    deleteProgramme_Portique(id: string) {
-        return 'This call returns \DELETE request';
+
+    async getProgramme_Portique(id: number){
+        return await this.programmePortiqueRepository
+        .query('SELECT * FROM L_Programme_Portique WHERE programme_portique_id = ' + id);
     }
-    getProgramme_Portique(id: string): string {
-        return JSON.stringify({
-            '_id': id
-        })
-    }
-    getAllProgramme_Portique(): string {
-        return 'This call returns \GET_All request';
+
+    async getAllProgramme_Portique(){
+        return await this.programmePortiqueRepository
+        .query('SELECT * FROM L_Programme_Portique');
     }
 }

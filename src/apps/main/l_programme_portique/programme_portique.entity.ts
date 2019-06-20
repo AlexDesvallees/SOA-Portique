@@ -1,18 +1,21 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-import { ProgrammeDTO } from "../programme/programme.entity";
-import { PortiqueDTO } from "../portique/portique.entity";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 /**
  * DTO pour l'objet ProgrammePortique
  * Cet Objet représente la table de liaison L_Programme_Portique
  */
+@Entity()
 export class ProgrammePortiqueDTO {
-    @ApiModelProperty()
+
+    @PrimaryGeneratedColumn()
     readonly programme_portique_id: number;
 
     @ApiModelProperty()
-    readonly programme_id: ProgrammeDTO["programme_id"];
+    @Column('int')
+    programme_id: number;
 
     @ApiModelProperty()
-    readonly portique_id: PortiqueDTO["portique_id"];
+    @Column('int')
+    portique_id: number;
 }

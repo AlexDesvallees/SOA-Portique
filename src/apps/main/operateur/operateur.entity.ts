@@ -1,15 +1,20 @@
 import { ApiModelProperty } from "@nestjs/swagger";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 /**
  * DTO pour l'objet Operateur
  */
+@Entity()
 export class OperateurDTO {
-    @ApiModelProperty()
+
+    @PrimaryGeneratedColumn()
     readonly operateur_id: number;
 
     @ApiModelProperty()
-    readonly nom: string;
+    @Column({length : 50})
+    nom: string;
 
     @ApiModelProperty()
-    readonly prenom: string;
+    @Column({length : 50})
+    prenom: string;
 }

@@ -12,5 +12,5 @@ export class StatusDTO {
 
     @ApiModelProperty()
     @Column({ length: 50 })
-    readonly role: string;
+    role: string;
 }

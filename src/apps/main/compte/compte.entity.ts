@@ -1,18 +1,23 @@
 import { ApiModelProperty } from "@nestjs/swagger";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 /**
  * DTO pour l'objet Compte
  */
+@Entity()
 export class CompteDTO {
-    @ApiModelProperty()
+
+    @PrimaryGeneratedColumn()
     readonly compte_id: number;
 
     @ApiModelProperty()
-    readonly solde: number;
+    @Column('int')
+    solde: number;
 
     /**
      * Equivaut a la date de fin du contrat
      */
     @ApiModelProperty()
-    readonly date_validite: Date;
+    @Column({length : 50})
+    date_validite: string;
 }

@@ -12,7 +12,7 @@ export class PanneController {
     //#region Get
     @ApiUseTags('Pannes')
     @Get(':id')
-    getPanne(@Param('id') id : string, @Query('limit') limit = 10) : string {
+    getPanne(@Param('id') id : number, @Query('limit') limit = 10) {
             return this.panneService.getPanne(id);
     }
 
@@ -30,27 +30,19 @@ export class PanneController {
         return this.panneService.addPanne(PanneDTO);
     }
     //#endregion
-
-    //#region Patch
-    @ApiUseTags('Pannes')
-    @Patch()
-    fullUpdatePanne(@Body() PanneDTO : Panne){
-        return this.panneService.fullUpdatePanne(PanneDTO);
-    }
-    //#endregion
     
     //region put
     @ApiUseTags('Pannes')
     @Put(':id')
-    updatePanne(@Body() PanneDTO : Panne){
-        return this.panneService.updatePanne(PanneDTO);
+    updatePannePortique(@Param('id') id : number, @Body() PanneDTO : Panne){
+        return this.panneService.updatePanne(id, PanneDTO);
     }
     //endregion
 
     //#region Delete
     @ApiUseTags('Pannes')
     @Delete(':id')
-    deletePanne(@Param('id') id : string){
+    deletePanne(@Param('id') id : number){
         return this.panneService.deletePanne(id);
     }
     //endregion

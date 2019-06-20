@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Put, Patch } from '@nestjs/common';
+import { Controller, Get, Param, Query, Post, Body, Delete, Put } from '@nestjs/common';
 import { PortiqueService } from "./portique.service";
 import { PortiqueDTO as Portique } from "./portique.entity";
 import { ApiUseTags } from '@nestjs/swagger';
@@ -12,7 +12,7 @@ export class PortiqueController {
     //#region Get
     @ApiUseTags('Portiques')
     @Get(':id')
-    getPortique(@Param('id') id : string, @Query('limit') limit = 10) : string {
+    getPortique(@Param('id') id : number, @Query('limit') limit = 10){
             return this.portiqueService.getPortique(id);
     }
 
@@ -30,27 +30,19 @@ export class PortiqueController {
         return this.portiqueService.addPortique(portiqueDTO);
     }
     //#endregion
-
-    //#region Patch
-    @ApiUseTags('Portiques')
-    @Patch()
-    fullUpdatePortique(@Body() portiqueDTO : Portique){
-        return this.portiqueService.fullUpdatePortique(portiqueDTO);
-    }
-    //#endregion
     
     //region put
     @ApiUseTags('Portiques')
     @Put(':id')
-    updatePortique(@Body() portiqueDTO : Portique){
-        return this.portiqueService.updatePortique(portiqueDTO);
+    updatePortique(@Param('id') id : number, @Body() portiqueDTO : Portique){
+        return this.portiqueService.updatePortique(id, portiqueDTO);
     }
     //endregion
 
     //#region Delete
     @ApiUseTags('Portiques')
     @Delete(':id')
-    deletePortique(@Param('id') id : string){
+    deletePortique(@Param('id') id : number){
         return this.portiqueService.deletePortique(id);
     }
     //endregion
