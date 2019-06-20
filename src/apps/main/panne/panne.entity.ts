@@ -19,6 +19,6 @@ export class PanneDTO {
     type_panne: string;
 
     @ApiModelProperty()
-    @Column('date')
-    date_panne: Date;
+    @Column({length : 50})
+    date_panne: string;
 }

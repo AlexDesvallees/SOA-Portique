@@ -26,7 +26,7 @@ export class Programme_PortiqueService {
         [programme_PortiqueDTO.programme_id, programme_PortiqueDTO.portique_id]);
     }
 
-    async deleteProgramme_Portique(id: string) {
+    async deleteProgramme_Portique(id: number) {
         return await this.programmePortiqueRepository.delete(id);
     }
 

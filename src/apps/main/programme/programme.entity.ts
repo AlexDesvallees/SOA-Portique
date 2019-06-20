@@ -14,7 +14,7 @@ export class ProgrammeDTO {
     @Column('int')
     numero_programme: number;
 
-    @Column('date')
     @ApiModelProperty()
-    date_prog: Date;
+    @Column({length : 50})
+    date_prog: string;
 }

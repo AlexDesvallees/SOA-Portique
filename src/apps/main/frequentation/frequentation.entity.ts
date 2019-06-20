@@ -1,24 +1,29 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-import { UserDTO } from "../users/user.entity";
-import { PortiqueDTO } from "../portique/portique.entity";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 /**
  * WARNING - A revoir avec table de fait etc...
  * DTO pour l'objet Frequentation
  */
+@Entity()
 export class FrequentationDTO {
-    @ApiModelProperty()
+
+    @PrimaryGeneratedColumn()
     readonly frequentation_id: number;
 
     @ApiModelProperty()
-    readonly portique_id: PortiqueDTO["portique_id"];
+    @Column('int')
+    portique_id: number;
 
     @ApiModelProperty()
-    readonly personne_id: UserDTO["personne_id"];
+    @Column('int')
+    personne_id: number;
 
     @ApiModelProperty()
-    readonly date_freq: Date;
+    @Column({length : 50})
+    date_freq: string;
 
     @ApiModelProperty()
-    readonly nb_pers_freq: number;
+    @Column('int')
+    nb_pers_freq: number;
 }
