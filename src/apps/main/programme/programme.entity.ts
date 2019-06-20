@@ -12,9 +12,9 @@ export class ProgrammeDTO {
 
     @ApiModelProperty()
     @Column('int')
-    readonly numero_programme: number;
+    numero_programme: number;
 
     @Column('date')
     @ApiModelProperty()
-    readonly date_prog: Date;
+    date_prog: Date;
 }

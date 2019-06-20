@@ -1,6 +1,5 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-import { OperateurDTO as Operateur } from "../operateur/operateur.entity";
-import { PrimaryGeneratedColumn } from "typeorm";
+import { PrimaryGeneratedColumn, Column } from "typeorm";
 
 /**
  * DTO pour l'objet Portique
@@ -8,22 +7,26 @@ import { PrimaryGeneratedColumn } from "typeorm";
 export class PortiqueDTO {
 
     @PrimaryGeneratedColumn()
-    @ApiModelProperty()
     readonly portique_id: number;
 
     @ApiModelProperty()
-    readonly operateur_id: Operateur["operateur_id"];
+    @Column('int')
+    operateur_id: number;
 
     @ApiModelProperty()
-    readonly adresse: string;
+    @Column({ length: 50 })
+    adresse: string;
 
     @ApiModelProperty()
-    readonly ville: string;
+    @Column({ length: 50 })
+    ville: string;
 
     @ApiModelProperty()
-    readonly code_postal: number;
+    @Column('int')
+    code_postal: number;
 
     // Alex - Pour ce champs, je ne sais plus pourquoi on l'avait inclu dans le MCD
     @ApiModelProperty()
-    readonly alarme: string;
+    @Column({ length: 50 })
+    alarme: string;
 }

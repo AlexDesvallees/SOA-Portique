@@ -8,7 +8,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
 @Entity()
 export class UserDTO {
   @PrimaryGeneratedColumn()
-  personne_id: number;
+  readonly personne_id: number;
 
   @ApiModelProperty()
   @Column('int')

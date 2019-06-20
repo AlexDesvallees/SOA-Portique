@@ -1,29 +1,53 @@
 import { Injectable } from '@nestjs/common';
 import { PortiqueDTO as Portique } from "./portique.entity";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PortiqueService {
-    fullUpdatePortique(portiqueDTO: Portique) {
-        return 'This call returns \PATCH request';
+
+    constructor(@InjectRepository(Portique) private portiqueRepository: Repository<Portique>) { }
+
+    async updatePortiqueOperateur(portique: Portique) {
+        return await this.portiqueRepository
+        .query('UPDATE Portique SET operateur_id = ? WHERE portique_id = ?', [portique.operateur_id, portique.portique_id]);
     }
-    insertPortique(portiqueDTO: Portique) {
-        return 'This call returns \POST request';
+
+    async updatePortiqueAdresse(portique: Portique) {
+        return await this.portiqueRepository
+        .query('UPDATE Portique SET adresse = ? WHERE portique_id = ?', [portique.adresse, portique.portique_id]);
     }
-    updatePortique(portiqueDTO: Portique) {
-        return 'This call returns \PUT request';
+
+    async updatePortiqueVille(portique: Portique) {
+        return await this.portiqueRepository
+        .query('UPDATE Portique SET ville = ? WHERE portique_id = ?', [portique.ville, portique.portique_id]);
     }
-    addPortique(myDTO: Portique) {
-        return myDTO;
+
+    async updatePortiqueCodePostal(portique: Portique) {
+        return await this.portiqueRepository
+        .query('UPDATE Portique SET code_postal = ? WHERE portique_id = ?', [portique.code_postal, portique.portique_id]);
     }
-    deletePortique(id: string) {
-        return 'This call returns \DELETE request';
+
+    async updatePortiqueAlarme(portique: Portique) {
+        return await this.portiqueRepository
+        .query('UPDATE Portique SET alarme = ? WHERE portique_id = ?', [portique.operateur_id, portique.alarme]);
     }
-    getPortique(id: string): string {
-        return JSON.stringify({
-            '_id': id
-        })
+
+    async addPortique(portique: Portique) {
+        return await this.portiqueRepository
+        .query('INSERT INTO Portique (operateur_id, adresse, ville, code_postal, alarme) VALUES (?,?,?,?,?)',
+        [portique.operateur_id, portique.adresse, portique.ville, portique.code_postal, portique.alarme]);
     }
-    getAllPortique(): string {
-        return 'This call returns \GET_All request';
+
+    async deletePortique(portiqueId: number) {
+        return await this.portiqueRepository.delete(portiqueId);
+    }
+
+    async getPortique(portiqueId: number){
+        return await this.portiqueRepository.query('SELECT * FROM Portique WHERE portique_id = ' + portiqueId);
+    }
+
+    async getAllPortique(){
+        return await this.portiqueRepository.query('SELECT * FROM Portique');
     }
 }

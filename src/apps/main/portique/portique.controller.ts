@@ -12,7 +12,7 @@ export class PortiqueController {
     //#region Get
     @ApiUseTags('Portiques')
     @Get(':id')
-    getPortique(@Param('id') id : string, @Query('limit') limit = 10) : string {
+    getPortique(@Param('id') id : number, @Query('limit') limit = 10){
             return this.portiqueService.getPortique(id);
     }
 
@@ -30,27 +30,51 @@ export class PortiqueController {
         return this.portiqueService.addPortique(portiqueDTO);
     }
     //#endregion
-
-    //#region Patch
-    @ApiUseTags('Portiques')
-    @Patch()
-    fullUpdatePortique(@Body() portiqueDTO : Portique){
-        return this.portiqueService.fullUpdatePortique(portiqueDTO);
-    }
-    //#endregion
     
     //region put
     @ApiUseTags('Portiques')
     @Put(':id')
-    updatePortique(@Body() portiqueDTO : Portique){
-        return this.portiqueService.updatePortique(portiqueDTO);
+    updatePortiqueAdresse(@Body() portiqueDTO : Portique){
+        return this.portiqueService.updatePortiqueAdresse(portiqueDTO);
+    }
+    //endregion
+
+    //region put
+    @ApiUseTags('Portiques')
+    @Put(':id')
+    updatePortiqueVille(@Body() portiqueDTO : Portique){
+        return this.portiqueService.updatePortiqueVille(portiqueDTO);
+    }
+    //endregion
+
+    //region put
+    @ApiUseTags('Portiques')
+    @Put(':id')
+    updatePortiqueCodePostal(@Body() portiqueDTO : Portique){
+        return this.portiqueService.updatePortiqueCodePostal(portiqueDTO);
+    }
+    //endregion
+
+    //region put
+    @ApiUseTags('Portiques')
+    @Put(':id')
+    updatePortiqueAlarme(@Body() portiqueDTO : Portique){
+        return this.portiqueService.updatePortiqueAlarme(portiqueDTO);
+    }
+    //endregion
+
+    //region put
+    @ApiUseTags('Portiques')
+    @Put(':id')
+    updatePortiqueOperateur(@Body() portiqueDTO : Portique){
+        return this.portiqueService.updatePortiqueOperateur(portiqueDTO);
     }
     //endregion
 
     //#region Delete
     @ApiUseTags('Portiques')
     @Delete(':id')
-    deletePortique(@Param('id') id : string){
+    deletePortique(@Param('id') id : number){
         return this.portiqueService.deletePortique(id);
     }
     //endregion
