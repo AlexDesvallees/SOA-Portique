@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata } from '@nestjs/common';
+import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Patch } from '@nestjs/common';
 import { UserService } from "./users.service";
 import { UserDTO } from "./user.entity";
 import { ApiUseTags, ApiImplicitBody, ApiBearerAuth } from '@nestjs/swagger';
@@ -30,6 +30,12 @@ export class UserController {
     addUser(@Body() userDTO : UserDTO){
         return this.userService.addUser(userDTO);
     }
+
+    // @ApiUseTags('Users')
+    // @Patch(':userId')
+    // updateUser(@Param('userId') userId : number){
+    //     return this.userService.updateUser(userId);
+    // }
 
     @ApiUseTags('Users')
     @Delete(':userId')

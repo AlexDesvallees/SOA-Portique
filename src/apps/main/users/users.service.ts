@@ -14,6 +14,10 @@ export class UserService {
         return await this.usersRepository.query("INSERT INTO Personne (status_id, compte_id, nom, prenom, isBlocked) VALUES (?,?,?,?,?)", [ myDTO.status_id, myDTO.compte_id, myDTO.nom, myDTO.prenom, myDTO.isBlocked]);
     }
 
+    async updateUser(myDTO : UserDTO) : Promise<UserDTO> {
+        return await this.usersRepository.query("UPDATE soa_personne.")
+    }
+
     async deleteUser(userId: string) {
         return await this.usersRepository.delete(userId)
     }

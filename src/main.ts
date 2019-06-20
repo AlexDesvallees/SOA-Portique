@@ -1,13 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './apps/main/app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { UserModule } from './users/users.module';
 import { Transport } from '@nestjs/common/enums/transport.enum';
+import { MicroServiceModule } from './apps/portique/microService.module';
 // import { RolesGuard } from './auth-role.guard';
 
 async function bootstrap() {
   const appPromise = NestFactory.create(AppModule);
-  const miscroSPromise = NestFactory.createMicroservice(UserModule, {
+  const miscroSPromise = NestFactory.createMicroservice(MicroServiceModule, {
     transport: Transport.TCP
   });
 
