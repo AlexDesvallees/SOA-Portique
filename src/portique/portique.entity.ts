@@ -1,10 +1,13 @@
 import { ApiModelProperty } from "@nestjs/swagger";
 import { OperateurDTO as Operateur } from "../operateur/operateur.entity";
+import { PrimaryGeneratedColumn } from "typeorm";
 
 /**
  * DTO pour l'objet Portique
  */
 export class PortiqueDTO {
+
+    @PrimaryGeneratedColumn()
     @ApiModelProperty()
     readonly portique_id: number;
 
