@@ -1,29 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { CompteDTO as Compte } from "./compte.entity";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CompteService {
-    fullUpdateCompte(compteDTO: Compte) {
-        return 'This call returns \PATCH request';
+
+    constructor(@InjectRepository(Compte) private compteRepository: Repository<Compte>) { }
+
+    async fullUpdateCompte(id: number, compteDTO: Compte) {
+        return await this.compteRepository
+        .query('UPDATE Compte SET solde = ?, date_validite = ? WHERE compte_id = ?',
+        [compteDTO.solde, compteDTO.date_validite, id]);
     }
-    insertCompte(compteDTO: Compte) {
-        return 'This call returns \POST request';
+
+    async updateCompte(id: number, compteDTO: Compte) {
+        return await this.compteRepository
+        .query('UPDATE Compte SET solde = ?, date_validite = ? WHERE compte_id = ?',
+        [compteDTO.solde, compteDTO.date_validite, id]);
     }
-    updateCompte(compteDTO: Compte) {
-        return 'This call returns \PUT request';
+
+    async addCompte(compteDTO: Compte) {
+        return await this.compteRepository
+        .query('INSERT INTO Compte (solde, date_validite) VALUES (?,?)',
+        [compteDTO.solde, compteDTO.date_validite]);
     }
-    addCompte(myDTO: Compte) {
-        return myDTO;
+
+    async deleteCompte(id: number) {
+        return await this.compteRepository.delete(id);
     }
-    deleteCompte(id: string) {
-        return 'This call returns \DELETE request';
+
+    async getCompte(id: number){
+        return await this.compteRepository
+        .query('SELECT * FROM Compte WHERE compte_id = ' + id);
     }
-    getCompte(id: string): string {
-        return JSON.stringify({
-            '_id': id
-        })
-    }
-    getAllCompte(): string {
-        return 'This call returns \GET_All request';
+
+    async getAllCompte(){
+        return await this.compteRepository.query('SELECT * From Compte');
     }
 }

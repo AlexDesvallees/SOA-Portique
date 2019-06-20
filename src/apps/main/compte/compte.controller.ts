@@ -12,7 +12,7 @@ export class CompteController {
     //#region Get
     @ApiUseTags('Comptes')
     @Get(':id')
-    getCompte(@Param('id') id : string, @Query('limit') limit = 10) : string {
+    getCompte(@Param('id') id : number, @Query('limit') limit = 10){
             return this.compteService.getCompte(id);
     }
 
@@ -33,24 +33,24 @@ export class CompteController {
 
     //#region Patch
     @ApiUseTags('Comptes')
-    @Patch()
-    fullUpdateCompte(@Body() CompteDTO : Compte){
-        return this.compteService.fullUpdateCompte(CompteDTO);
+    @Put(':id')
+    fullUpdateCompte(@Param('id') id : number, @Body() CompteDTO : Compte){
+        return this.compteService.fullUpdateCompte(id, CompteDTO);
     }
     //#endregion
     
     //region put
     @ApiUseTags('Comptes')
     @Put(':id')
-    updateCompte(@Body() CompteDTO : Compte){
-        return this.compteService.updateCompte(CompteDTO);
+    updateCompte(@Param('id') id : number, @Body() CompteDTO : Compte){
+        return this.compteService.updateCompte(id, CompteDTO);
     }
     //endregion
 
     //#region Delete
     @ApiUseTags('Comptes')
     @Delete(':id')
-    deleteCompte(@Param('id') id : string){
+    deleteCompte(@Param('id') id : number){
         return this.compteService.deleteCompte(id);
     }
     //endregion
