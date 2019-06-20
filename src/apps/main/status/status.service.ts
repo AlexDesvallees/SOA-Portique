@@ -26,7 +26,7 @@ export class StatusService {
         return await this.statusRepository.query('SELECT * FROM Status WHERE status_id = ' + statusId);
     }
 
-    async getAllStatus() {
+    async getAllStatus(){
         return await this.statusRepository.query('SELECT * FROM Status');
     }
 }

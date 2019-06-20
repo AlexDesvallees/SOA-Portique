@@ -12,40 +12,39 @@ export class PortiqueService {
     } })
     client: ClientProxy;
 
-    fullUpdatePortique(portiqueDTO: Portique) {
-        return 'This call returns \PATCH request';
-    }
-    insertPortique(portiqueDTO: Portique) {
-        return 'This call returns \POST request';
-    }
     constructor(@InjectRepository(Portique) private portiqueRepository: Repository<Portique>) { }
 
     async updatePortique(id: number, portique: Portique) {
-        return await this.portiqueRepository
-        .query('UPDATE Portique SET adresse = ?, operateur_id = ?, ville = ?, code_postal = ?, alarme = ? WHERE portique_id = ?',
-        [portique.adresse, portique.operateur_id, portique.ville, portique.code_postal, portique.alarme, id]);
+        return await this.client.send({cmd: "UpdatePortique"}, {id, portique}).pipe(
+            first(),
+            map(res => res as Portique[])
+        ).toPromise();
     }
 
     async addPortique(portique: Portique) {
-        return await this.portiqueRepository
-        .query('INSERT INTO Portique (operateur_id, adresse, ville, code_postal, alarme) VALUES (?,?,?,?,?)',
-        [portique.operateur_id, portique.adresse, portique.ville, portique.code_postal, portique.alarme]);
+        return await this.client.send({cmd: "AddPortique"}, portique).pipe(
+            first(),
+            map(res => res as Portique[])
+        ).toPromise();
     }
 
     async deletePortique(portiqueId: number) {
-        return await this.portiqueRepository.delete(portiqueId);
+        return await this.client.send({cmd: "DeletePortique"}, portiqueId).pipe(
+            first(),
+            map(res => res as Portique[])
+        ).toPromise();
     }
 
     async getPortique(portiqueId: number){
-        return await this.portiqueRepository.query('SELECT * FROM Portique WHERE portique_id = ' + portiqueId);
+        return await this.client.send({cmd: "GetPortique"}, portiqueId).pipe(
+            first(),
+            map(res => res as Portique[])
+        ).toPromise();
     }
     getAllPortique(): Promise<Portique[]> {
-        console.log("On arrive bien dans le send");
-        console.log(this.client);
-
-        return this.client.send({cmd: "GetPortique"}, {}).pipe(
+        return this.client.send({cmd: "GetPortiques"}, {}).pipe(
             first(),
-            map(res=> res as Portique[])
+            map(res => res as Portique[])
             ).toPromise();
     }
 }
