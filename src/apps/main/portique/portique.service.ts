@@ -8,29 +8,10 @@ export class PortiqueService {
 
     constructor(@InjectRepository(Portique) private portiqueRepository: Repository<Portique>) { }
 
-    async updatePortiqueOperateur(portique: Portique) {
+    async updatePortique(id: number, portique: Portique) {
         return await this.portiqueRepository
-        .query('UPDATE Portique SET operateur_id = ? WHERE portique_id = ?', [portique.operateur_id, portique.portique_id]);
-    }
-
-    async updatePortiqueAdresse(portique: Portique) {
-        return await this.portiqueRepository
-        .query('UPDATE Portique SET adresse = ? WHERE portique_id = ?', [portique.adresse, portique.portique_id]);
-    }
-
-    async updatePortiqueVille(portique: Portique) {
-        return await this.portiqueRepository
-        .query('UPDATE Portique SET ville = ? WHERE portique_id = ?', [portique.ville, portique.portique_id]);
-    }
-
-    async updatePortiqueCodePostal(portique: Portique) {
-        return await this.portiqueRepository
-        .query('UPDATE Portique SET code_postal = ? WHERE portique_id = ?', [portique.code_postal, portique.portique_id]);
-    }
-
-    async updatePortiqueAlarme(portique: Portique) {
-        return await this.portiqueRepository
-        .query('UPDATE Portique SET alarme = ? WHERE portique_id = ?', [portique.operateur_id, portique.alarme]);
+        .query('UPDATE Portique SET adresse = ?, operateur_id = ?, ville = ?, code_postal = ?, alarme = ? WHERE portique_id = ?',
+        [portique.adresse, portique.operateur_id, portique.ville, portique.code_postal, portique.alarme, id]);
     }
 
     async addPortique(portique: Portique) {

@@ -12,7 +12,7 @@ export class OperateurController {
     //#region Get
     @ApiUseTags('Operateurs')
     @Get(':id')
-    getOperateur(@Param('id') id : string, @Query('limit') limit = 10) : string {
+    getOperateur(@Param('id') id : number, @Query('limit') limit = 10){
             return this.OperateurService.getOperateur(id);
     }
 
@@ -33,17 +33,17 @@ export class OperateurController {
 
     //#region Patch
     @ApiUseTags('Operateurs')
-    @Patch()
-    fullUpdateOperateur(@Body() OperateurDTO : Operateur){
-        return this.OperateurService.fullUpdateOperateur(OperateurDTO);
+    @Put(':id')
+    fullUpdateOperateur(@Param('id') id : number, @Body() OperateurDTO : Operateur){
+        return this.OperateurService.fullUpdateOperateur(id, OperateurDTO);
     }
     //#endregion
     
     //region put
     @ApiUseTags('Operateurs')
-    @Put(':id')
-    updateOperateur(@Body() OperateurDTO : Operateur){
-        return this.OperateurService.updateOperateur(OperateurDTO);
+    @Patch(':id')
+    updateOperateur(@Param('id') id : number, @Body() OperateurDTO : Operateur){
+        return this.OperateurService.updateOperateur(id, OperateurDTO);
     }
     //endregion
 

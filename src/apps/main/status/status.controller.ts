@@ -34,8 +34,8 @@ export class StatusController {
     //region put
     @ApiUseTags('Status')
     @Put(':id')
-    updateStatus(@Body() StatusDTO : Status){
-        return this.statusService.updateStatus(StatusDTO);
+    updateStatus(@Param('id') id : number, @Body() StatusDTO : Status){
+        return this.statusService.updateStatus(id, StatusDTO);
     }
     //endregion
 

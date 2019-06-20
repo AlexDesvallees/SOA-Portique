@@ -33,25 +33,17 @@ export class ProgrammeController {
 
     //#region Patch
     @ApiUseTags('Programmes')
-    @Patch()
-    fullUpdateProgramme(@Body() ProgrammeDTO : ProgrammeDTO){
-        return this.programmeService.fullUpdateProgramme(ProgrammeDTO);
+    @Put(':id')
+    fullUpdateProgramme(@Param('id') id : number, @Body() ProgrammeDTO : ProgrammeDTO){
+        return this.programmeService.fullUpdateProgramme(id, ProgrammeDTO);
     }
     //#endregion
     
     //region put
     @ApiUseTags('Programmes')
-    @Put(':id')
-    updateProgrammeDate(@Body() ProgrammeDTO : ProgrammeDTO){
-        return this.programmeService.updateProgrammeDate(ProgrammeDTO);
-    }
-    //endregion
-
-    //region put
-    @ApiUseTags('Programmes')
-    @Put(':id')
-    updateProgrammeNumber(@Body() ProgrammeDTO : ProgrammeDTO){
-        return this.programmeService.updateProgrammeNumber(ProgrammeDTO);
+    @Patch(':id')
+    updateProgramme(@Param('id') id : number, @Body() ProgrammeDTO : ProgrammeDTO){
+        return this.programmeService.updateProgramme(id, ProgrammeDTO);
     }
     //endregion
 

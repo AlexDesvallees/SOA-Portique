@@ -8,22 +8,16 @@ export class ProgrammeService {
 
     constructor(@InjectRepository(Programme) private programmeRepository: Repository<Programme>) { }
     
-    async fullUpdateProgramme(programme: Programme) {
+    async fullUpdateProgramme(id: number, programme: Programme) {
         return await this.programmeRepository
         .query('UPDATE Programme SET numero_programme = ?, date_prog = ? WHERE programme_id = ?',
-        [programme.numero_programme, programme.date_prog, programme.programme_id]);
+        [programme.numero_programme, programme.date_prog, id]);
     }
 
-    async updateProgrammeDate(programme: Programme) {
+    async updateProgramme(id: number, programme: Programme) {
         return await this.programmeRepository
-        .query('UPDATE Programme SET date_prog = ? WHERE programme_id = ?',
-        [programme.date_prog, programme.programme_id]);
-    }
-
-    async updateProgrammeNumber(programme: Programme) {
-        return await this.programmeRepository
-        .query('UPDATE Programme SET numero_programme = ? WHERE programme_id = ?',
-        [programme.numero_programme, programme.programme_id]);
+        .query('UPDATE Programme SET date_prog = ?, numero_programme = ? WHERE programme_id = ?',
+        [programme.date_prog, programme.numero_programme, id]);
     }
 
     async addProgramme(programme: Programme) {

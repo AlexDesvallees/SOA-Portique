@@ -1,9 +1,10 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-import { PrimaryGeneratedColumn, Column } from "typeorm";
+import { PrimaryGeneratedColumn, Column, Entity } from "typeorm";
 
 /**
  * DTO pour l'objet Portique
  */
+@Entity()
 export class PortiqueDTO {
 
     @PrimaryGeneratedColumn()

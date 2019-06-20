@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Put, Patch } from '@nestjs/common';
+import { Controller, Get, Param, Query, Post, Body, Delete, Put } from '@nestjs/common';
 import { PortiqueService } from "./portique.service";
 import { PortiqueDTO as Portique } from "./portique.entity";
 import { ApiUseTags } from '@nestjs/swagger';
@@ -34,40 +34,8 @@ export class PortiqueController {
     //region put
     @ApiUseTags('Portiques')
     @Put(':id')
-    updatePortiqueAdresse(@Body() portiqueDTO : Portique){
-        return this.portiqueService.updatePortiqueAdresse(portiqueDTO);
-    }
-    //endregion
-
-    //region put
-    @ApiUseTags('Portiques')
-    @Put(':id')
-    updatePortiqueVille(@Body() portiqueDTO : Portique){
-        return this.portiqueService.updatePortiqueVille(portiqueDTO);
-    }
-    //endregion
-
-    //region put
-    @ApiUseTags('Portiques')
-    @Put(':id')
-    updatePortiqueCodePostal(@Body() portiqueDTO : Portique){
-        return this.portiqueService.updatePortiqueCodePostal(portiqueDTO);
-    }
-    //endregion
-
-    //region put
-    @ApiUseTags('Portiques')
-    @Put(':id')
-    updatePortiqueAlarme(@Body() portiqueDTO : Portique){
-        return this.portiqueService.updatePortiqueAlarme(portiqueDTO);
-    }
-    //endregion
-
-    //region put
-    @ApiUseTags('Portiques')
-    @Put(':id')
-    updatePortiqueOperateur(@Body() portiqueDTO : Portique){
-        return this.portiqueService.updatePortiqueOperateur(portiqueDTO);
+    updatePortique(@Param('id') id : number, @Body() portiqueDTO : Portique){
+        return this.portiqueService.updatePortique(id, portiqueDTO);
     }
     //endregion
 
