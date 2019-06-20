@@ -30,14 +30,6 @@ export class Programme_PortiqueController {
         return this.programme_portiqueService.addProgramme_Portique(Programme_PortiqueDTO);
     }
     //#endregion
-
-    //#region Patch
-    @ApiUseTags('Programme_Portiques')
-    @Put(':id')
-    fullUpdateProgramme_Portique(@Param('id') id : number, @Body() Programme_PortiqueDTO : Programme_Portique){
-        return this.programme_portiqueService.fullUpdateProgramme_Portique(id, Programme_PortiqueDTO);
-    }
-    //#endregion
     
     //region put
     @ApiUseTags('Programme_Portiques')

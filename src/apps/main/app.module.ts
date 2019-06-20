@@ -14,6 +14,7 @@ import { CompteModule } from "./compte/compte.module";
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth-role.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Programme_PortiqueModule } from './l_programme_portique/programme_portique.module';
 // import { Connection } from 'typeorm';
 
 @Module({
@@ -26,7 +27,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     ProgrammeModule,
     OperateurModule,
     FrequentationModule,
-    CompteModule
+    CompteModule,
+    Programme_PortiqueModule
   ],
   controllers: [AppController],
   providers: [AppService,

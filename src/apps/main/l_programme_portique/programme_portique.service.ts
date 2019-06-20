@@ -1,42 +1,47 @@
 import { Injectable } from '@nestjs/common';
-import { ProgrammePortiqueDTO as L_Programme_Portique } from "./programme_portique.entity";
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-
+import { ProgrammePortiqueDTO as Programme_Portique } from "./programme_portique.entity";
+import { Client, ClientProxy, Transport } from '@nestjs/microservices';
+import { first, map } from "rxjs/operators";
 @Injectable()
 export class Programme_PortiqueService {
 
-    constructor(@InjectRepository(L_Programme_Portique) private programmePortiqueRepository: Repository<L_Programme_Portique>) { }
+    @Client({ transport: Transport.TCP, options: {
+        port: Number.parseInt(process.env.microservicePort) || 3001
+    } })
+    client: ClientProxy;
 
-    async fullUpdateProgramme_Portique(id: number, programme_PortiqueDTO: L_Programme_Portique) {
-        return await this.programmePortiqueRepository
-        .query('UPDATE L_Programme_Portique SET programme_id = ?, portique_id WHERE programme_portique_id = ?',
-        [programme_PortiqueDTO.programme_id, programme_PortiqueDTO.portique_id, id]);
+    async updateProgramme_Portique(id: number, programme_portique: Programme_Portique) {
+        return await this.client.send({cmd: "UpdateProgramme_Portique"}, {id, programme_portique}).pipe(
+            first(),
+            map(res => res as Programme_Portique[])
+        ).toPromise();
     }
 
-    async updateProgramme_Portique(id: number, programme_PortiqueDTO: L_Programme_Portique) {
-        return await this.programmePortiqueRepository
-        .query('UPDATE L_Programme_Portique SET programme_id = ?, portique_id WHERE programme_portique_id = ?',
-        [programme_PortiqueDTO.programme_id, programme_PortiqueDTO.portique_id, id]);
+    async addProgramme_Portique(programme_portique: Programme_Portique) {
+        return await this.client.send({cmd: "AddProgramme_Portique"}, programme_portique).pipe(
+            first(),
+            map(res => res as Programme_Portique[])
+        ).toPromise();
     }
 
-    async addProgramme_Portique(programme_PortiqueDTO: L_Programme_Portique) {
-        return await this.programmePortiqueRepository
-        .query('INSERT INTO L_Programme_Portique (programme_id, portique_id) VALUES (?,?)',
-        [programme_PortiqueDTO.programme_id, programme_PortiqueDTO.portique_id]);
+    async deleteProgramme_Portique(programme_portiqueId: number) {
+        return await this.client.send({cmd: "DeleteProgramme_Portique"}, programme_portiqueId).pipe(
+            first(),
+            map(res => res as Programme_Portique[])
+        ).toPromise();
     }
 
-    async deleteProgramme_Portique(id: number) {
-        return await this.programmePortiqueRepository.delete(id);
+    async getProgramme_Portique(programme_portiqueId: number){
+        return await this.client.send({cmd: "GetProgramme_Portique"}, programme_portiqueId).pipe(
+            first(),
+            map(res => res as Programme_Portique[])
+        ).toPromise();
     }
 
-    async getProgramme_Portique(id: number){
-        return await this.programmePortiqueRepository
-        .query('SELECT * FROM L_Programme_Portique WHERE programme_portique_id = ' + id);
-    }
-
-    async getAllProgramme_Portique(){
-        return await this.programmePortiqueRepository
-        .query('SELECT * FROM L_Programme_Portique');
+    async getAllProgramme_Portique(): Promise<Programme_Portique[]> {
+        return await this.client.send({cmd: "GetProgramme_Portiques"}, {}).pipe(
+            first(),
+            map(res => res as Programme_Portique[])
+            ).toPromise();
     }
 }

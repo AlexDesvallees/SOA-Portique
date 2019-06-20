@@ -7,6 +7,8 @@ import { PortiqueModule } from './portique/portique.module';
 import { ProgrammeModule } from './programme/programme.module';
 import { PanneModule } from './panne/panne.module';
 import { OperateurModule } from './operateur/operateur.module';
+import { FrequentationModule } from './frequentation/frequentation.module';
+import { Programme_PortiqueModule } from './l_programme_portique/programme_portique.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(
@@ -23,7 +25,9 @@ import { OperateurModule } from './operateur/operateur.module';
     PortiqueModule,
     ProgrammeModule,
     PanneModule,
-    OperateurModule
+    OperateurModule,
+    FrequentationModule,
+    Programme_PortiqueModule
   ],
   controllers: [MicroServiceController],
   providers: [MicroServiceService],

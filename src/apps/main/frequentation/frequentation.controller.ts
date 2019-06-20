@@ -30,14 +30,6 @@ export class FrequentationController {
         return this.frequentationService.addFrequentation(FrequentationDTO);
     }
     //#endregion
-
-    //#region Patch
-    @ApiUseTags('Frequentations')
-    @Put(':id')
-    fullUpdateFrequentation(@Param('id') id : number, @Body() FrequentationDTO : Frequentation){
-        return this.frequentationService.fullUpdateFrequentation(id, FrequentationDTO);
-    }
-    //#endregion
     
     //region put
     @ApiUseTags('Frequentations')

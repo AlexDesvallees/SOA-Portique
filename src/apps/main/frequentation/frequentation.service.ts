@@ -1,45 +1,47 @@
 import { Injectable } from '@nestjs/common';
 import { FrequentationDTO as Frequentation } from "./frequentation.entity";
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-
+import { Client, ClientProxy, Transport } from '@nestjs/microservices';
+import { first, map } from "rxjs/operators";
 @Injectable()
 export class FrequentationService {
 
-    constructor(@InjectRepository(Frequentation) private frequentationRepository: Repository<Frequentation>) { }
+    @Client({ transport: Transport.TCP, options: {
+        port: Number.parseInt(process.env.microservicePort) || 3001
+    } })
+    client: ClientProxy;
 
-    async fullUpdateFrequentation(id: number, frequentationDTO: Frequentation) {
-        return await this.frequentationRepository
-        .query('UPDATE Frequentation SET portique_id = ?, personne_id = ?, date_freq = ?, nb_pers_freq WHERE frequentation_id = ?',
-        [frequentationDTO.portique_id, frequentationDTO.personne_id,
-            frequentationDTO.date_freq, frequentationDTO.nb_pers_freq, id]);
+    async updateFrequentation(id: number, frequentation: Frequentation) {
+        return await this.client.send({cmd: "UpdateFrequentation"}, {id, frequentation}).pipe(
+            first(),
+            map(res => res as Frequentation[])
+        ).toPromise();
     }
 
-    async updateFrequentation(id: number, frequentationDTO: Frequentation) {
-        return await this.frequentationRepository
-        .query('UPDATE Frequentation SET portique_id = ?, personne_id = ?, date_freq = ?, nb_pers_freq WHERE frequentation_id = ?',
-        [frequentationDTO.portique_id, frequentationDTO.personne_id,
-            frequentationDTO.date_freq, frequentationDTO.nb_pers_freq, id]);
+    async addFrequentation(frequentation: Frequentation) {
+        return await this.client.send({cmd: "AddFrequentation"}, frequentation).pipe(
+            first(),
+            map(res => res as Frequentation[])
+        ).toPromise();
     }
 
-    async addFrequentation(frequentationDTO: Frequentation) {
-        return await this.frequentationRepository
-        .query('INSERT INTO Frequentation (portique_id, personne_id, date_freq, nb_pers_freq) VALUES (?,?,?,?)',
-        [frequentationDTO.portique_id, frequentationDTO.personne_id,
-            frequentationDTO.date_freq, frequentationDTO.nb_pers_freq]);
+    async deleteFrequentation(frequentationId: number) {
+        return await this.client.send({cmd: "DeleteFrequentation"}, frequentationId).pipe(
+            first(),
+            map(res => res as Frequentation[])
+        ).toPromise();
     }
 
-    async deleteFrequentation(id: number) {
-        return await this.frequentationRepository.delete(id);
+    async getFrequentation(frequentationId: number){
+        return await this.client.send({cmd: "GetFrequentation"}, frequentationId).pipe(
+            first(),
+            map(res => res as Frequentation[])
+        ).toPromise();
     }
 
-    async getFrequentation(id: number){
-        return await this.frequentationRepository
-        .query('SELECT * FROM Frequentation WHERE frequentation_id = ' + id); 
-    }
-
-    async getAllFrequentation(){
-        return await this.frequentationRepository
-        .query('SELECT * FROM Frequentation');
+    async getAllFrequentation(): Promise<Frequentation[]> {
+        return await this.client.send({cmd: "GetFrequentations"}, {}).pipe(
+            first(),
+            map(res => res as Frequentation[])
+            ).toPromise();
     }
 }
