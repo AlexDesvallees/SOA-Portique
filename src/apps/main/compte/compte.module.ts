@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { CompteController } from './compte.controller';
 import { CompteService } from './compte.service';
-import { CompteDTO } from './compte.entity';
+import { CompteDTO as Compte} from './compte.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CompteDTO])],
+  imports: [TypeOrmModule.forFeature([Compte])],
   controllers: [CompteController],
   providers: [CompteService],
 })

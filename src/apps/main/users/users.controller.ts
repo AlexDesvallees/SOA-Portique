@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Patch } from '@nestjs/common';
 import { UserService } from "./users.service";
-import { UserDTO } from "./user.entity";
+import { UserDTO as Personne } from "./user.entity";
 import { ApiUseTags, ApiImplicitBody, ApiBearerAuth } from '@nestjs/swagger';
 // import { RolesGuard } from '../auth-role.guard';
 // import { Roles } from '../roles.decorator';
@@ -23,11 +23,11 @@ export class UserController {
         return this.userService.getUsers();
     }
 
-    @ApiImplicitBody({name : 'UserDTO', description: 'This is the post method', required: true, type : UserDTO} )
+    @ApiImplicitBody({name : 'UserDTO', description: 'This is the post method', required: true, type : Personne} )
     @ApiUseTags('Users')
     // @Roles('admin')
     @Post()
-    addUser(@Body() userDTO : UserDTO){
+    addUser(@Body() userDTO : Personne){
         return this.userService.addUser(userDTO);
     }
 

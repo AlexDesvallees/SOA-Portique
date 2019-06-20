@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { PanneController } from './panne.controller';
 import { PanneService } from './panne.service';
-import { PanneDTO } from './panne.entity';
+import { PanneDTO as Panne} from './panne.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([PanneDTO])],
+  imports: [TypeOrmModule.forFeature([Panne])],
   controllers: [PanneController],
   providers: [PanneService],
 })

@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Put, Patch } from '@nestjs/common';
 import { ProgrammeService } from "./programme.service";
-import { ProgrammeDTO } from "./programme.entity";
+import { ProgrammeDTO as Programme } from "./programme.entity";
 import { ApiUseTags } from '@nestjs/swagger';
 
 @Controller("/Programmes")
@@ -26,7 +26,7 @@ export class ProgrammeController {
     //#region Post
     @ApiUseTags('Programmes')
     @Post()
-    addProgramme(@Body() ProgrammeDTO : ProgrammeDTO){
+    addProgramme(@Body() ProgrammeDTO : Programme){
         return this.programmeService.addProgramme(ProgrammeDTO);
     }
     //#endregion
@@ -34,7 +34,7 @@ export class ProgrammeController {
     //#region Patch
     @ApiUseTags('Programmes')
     @Put(':id')
-    fullUpdateProgramme(@Param('id') id : number, @Body() ProgrammeDTO : ProgrammeDTO){
+    fullUpdateProgramme(@Param('id') id : number, @Body() ProgrammeDTO : Programme){
         return this.programmeService.fullUpdateProgramme(id, ProgrammeDTO);
     }
     //#endregion
@@ -42,7 +42,7 @@ export class ProgrammeController {
     //region put
     @ApiUseTags('Programmes')
     @Patch(':id')
-    updateProgramme(@Param('id') id : number, @Body() ProgrammeDTO : ProgrammeDTO){
+    updateProgramme(@Param('id') id : number, @Body() ProgrammeDTO : Programme){
         return this.programmeService.updateProgramme(id, ProgrammeDTO);
     }
     //endregion
