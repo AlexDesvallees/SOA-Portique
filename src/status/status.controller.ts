@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Put, Patch } from '@nestjs/common';
 import { StatusService } from "./status.service";
-import { StatusDTO as Status } from "./Status";
+import { StatusDTO as Status } from "./status.entity";
 import { ApiUseTags } from '@nestjs/swagger';
 
 @Controller("/Status")
@@ -12,7 +12,7 @@ export class StatusController {
     //#region Get
     @ApiUseTags('Status')
     @Get(':id')
-    getStatus(@Param('id') id : string, @Query('limit') limit = 10) : string {
+    getStatus(@Param('id') id : number, @Query('limit') limit = 10) {
             return this.statusService.getStatus(id);
     }
 
@@ -30,14 +30,6 @@ export class StatusController {
         return this.statusService.addStatus(StatusDTO);
     }
     //#endregion
-
-    //#region Patch
-    @ApiUseTags('Status')
-    @Patch()
-    fullUpdateStatus(@Body() StatusDTO : Status){
-        return this.statusService.fullUpdateStatus(StatusDTO);
-    }
-    //#endregion
     
     //region put
     @ApiUseTags('Status')
@@ -50,7 +42,7 @@ export class StatusController {
     //#region Delete
     @ApiUseTags('Status')
     @Delete(':id')
-    deleteStatus(@Param('id') id : string){
+    deleteStatus(@Param('id') id : number){
         return this.statusService.deleteStatus(id);
     }
     //endregion

@@ -1,5 +1,5 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-import { ProgrammeDTO } from "src/programme/programme";
+import { ProgrammeDTO } from "src/programme/programme.entity";
 import { PortiqueDTO } from "src/portique/portique";
 
 /**

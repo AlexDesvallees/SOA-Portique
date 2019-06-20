@@ -5,8 +5,8 @@
         "port": 3306,
         "username": "root",
         "password": "",
-        "database": "soa_personne",
-        "entities": ["src/users/user.entity.ts"],
+        "database": "soa_portique",
+        "entities": ["src/*/*.entity.ts"],
         "synchronize": true
     }
 ]

@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Put, Patch } from '@nestjs/common';
 import { ProgrammeService } from "./programme.service";
-import { ProgrammeDTO as Programme } from "./programme";
+import { ProgrammeDTO } from "./programme.entity";
 import { ApiUseTags } from '@nestjs/swagger';
 
 @Controller("/Programmes")
@@ -12,7 +12,7 @@ export class ProgrammeController {
     //#region Get
     @ApiUseTags('Programmes')
     @Get(':id')
-    getProgramme(@Param('id') id : string, @Query('limit') limit = 10) : string {
+    getProgramme(@Param('id') id : number, @Query('limit') limit = 10) {
             return this.programmeService.getProgramme(id);
     }
 
@@ -26,7 +26,7 @@ export class ProgrammeController {
     //#region Post
     @ApiUseTags('Programmes')
     @Post()
-    addProgramme(@Body() ProgrammeDTO : Programme){
+    addProgramme(@Body() ProgrammeDTO : ProgrammeDTO){
         return this.programmeService.addProgramme(ProgrammeDTO);
     }
     //#endregion
@@ -34,7 +34,7 @@ export class ProgrammeController {
     //#region Patch
     @ApiUseTags('Programmes')
     @Patch()
-    fullUpdateProgramme(@Body() ProgrammeDTO : Programme){
+    fullUpdateProgramme(@Body() ProgrammeDTO : ProgrammeDTO){
         return this.programmeService.fullUpdateProgramme(ProgrammeDTO);
     }
     //#endregion
@@ -42,15 +42,23 @@ export class ProgrammeController {
     //region put
     @ApiUseTags('Programmes')
     @Put(':id')
-    updateProgramme(@Body() ProgrammeDTO : Programme){
-        return this.programmeService.updateProgramme(ProgrammeDTO);
+    updateProgrammeDate(@Body() ProgrammeDTO : ProgrammeDTO){
+        return this.programmeService.updateProgrammeDate(ProgrammeDTO);
+    }
+    //endregion
+
+    //region put
+    @ApiUseTags('Programmes')
+    @Put(':id')
+    updateProgrammeNumber(@Body() ProgrammeDTO : ProgrammeDTO){
+        return this.programmeService.updateProgrammeNumber(ProgrammeDTO);
     }
     //endregion
 
     //#region Delete
     @ApiUseTags('Programmes')
     @Delete(':id')
-    deleteProgramme(@Param('id') id : string){
+    deleteProgramme(@Param('id') id : number){
         return this.programmeService.deleteProgramme(id);
     }
     //endregion

@@ -33,7 +33,7 @@ export class UserController {
 
     @ApiUseTags('Users')
     @Delete(':userId')
-    deleteUser(@Param('userId') userId : string){
+    deleteUser(@Param('userId') userId : number){
         return this.userService.deleteUser(userId);
     }
 }

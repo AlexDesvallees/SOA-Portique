@@ -1,29 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserDTO } from './user.entity';
+import { UserDTO as Personne } from './user.entity';
 import { Procedure } from "../procedure";
 
 @Injectable()
 export class UserService {
 
-    constructor(@InjectRepository(UserDTO) private usersRepository: Repository<UserDTO>) { }
+    constructor(@InjectRepository(Personne) private usersRepository: Repository<Personne>) { }
 
-    async addUser(myDTO : UserDTO) : Promise<UserDTO> {
+    async addUser(myDTO : Personne) : Promise<Personne> {
         // Alex - Il faut maintenant demander plus d'informations pour complèter toutes les tables correctement et leurs clé étrangères
-        return await this.usersRepository.query("INSERT INTO Personne (status_id, compte_id, nom, prenom, isBlocked) VALUES (?,?,?,?,?)", [ myDTO.status_id, myDTO.compte_id, myDTO.nom, myDTO.prenom, myDTO.isBlocked]);
+        return await this.usersRepository
+        .query("INSERT INTO Personne (status_id, compte_id, nom, prenom, isBlocked) VALUES (?,?,?,?,?)", [ myDTO.status_id, myDTO.compte_id, myDTO.nom, myDTO.prenom, myDTO.isBlocked]);
     }
 
-    async deleteUser(userId: string) {
+    async deleteUser(userId: number) {
         return await this.usersRepository.delete(userId)
     }
 
-    async getUser(userid : number): Promise<UserDTO[]> {
+    async getUser(userid : number): Promise<Personne[]> {
         return await this.usersRepository.query(Procedure.prototype.GetRequest("Lect_Personne"), [userid]);
     }
     
 
-    async getUsers(): Promise<UserDTO[]> {
+    async getUsers(): Promise<Personne[]> {
         return await this.usersRepository.query(Procedure.prototype.GetRequest("Lect_Liste_Personne"));
     }
 }

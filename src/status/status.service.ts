@@ -1,29 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import { StatusDTO as Status } from "./status";
+import { StatusDTO as Status } from "./status.entity";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class StatusService {
-    fullUpdateStatus(statusDTO: Status) {
-        return 'This call returns \PATCH request';
+
+    constructor(@InjectRepository(Status) private statusRepository: Repository<Status>) { }
+
+    async updateStatus(status: Status) {
+        return await this.statusRepository
+        .query('UPDATE Status SET role = ? WHERE status_id = ?', [status.role, status.status_id]);
     }
-    insertStatus(statusDTO: Status) {
-        return 'This call returns \POST request';
+
+    async addStatus(status: Status) {
+        return await this.statusRepository
+        .query('INSERT INTO Status (status_id, role) VALUES (?,?)', [status.status_id, status.role]);
     }
-    updateStatus(statusDTO: Status) {
-        return 'This call returns \PUT request';
+
+    async deleteStatus(statusId: number) {
+        return await this.statusRepository.delete(statusId)
     }
-    addStatus(myDTO: Status) {
-        return myDTO;
+
+    async getStatus(statusId: number) {
+        return await this.statusRepository.query('SELECT * FROM Status WHERE status_id = ' + statusId);
     }
-    deleteStatus(id: string) {
-        return 'This call returns \DELETE request';
-    }
-    getStatus(id: string): string {
-        return JSON.stringify({
-            '_id': id
-        })
-    }
-    getAllStatus(): string {
-        return 'This call returns \GET_All request';
+
+    async getAllStatus() {
+        return await this.statusRepository.query('SELECT * FROM Status');
     }
 }
