@@ -1,34 +1,47 @@
 import { Injectable } from '@nestjs/common';
 import { PanneDTO as Panne } from "./panne.entity";
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-
+import { Client, ClientProxy, Transport } from '@nestjs/microservices';
+import { first, map } from "rxjs/operators";
 @Injectable()
 export class PanneService {
 
-    constructor(@InjectRepository(Panne) private panneRepository: Repository<Panne>) { }
+    @Client({ transport: Transport.TCP, options: {
+        port: Number.parseInt(process.env.microservicePort) || 3001
+    } })
+    client: ClientProxy;
 
-    async addPanne(panne: Panne) {
-        return await this.panneRepository
-        .query('INSERT INTO Panne (portique_id, type_panne, date_panne) VALUES (?,?,?)',
-        [panne.portique_id, panne.type_panne, panne.date_panne]);
+    async updatePanne(id: number, panne: Panne) {
+        return await this.client.send({cmd: "UpdatePanne"}, {id, panne}).pipe(
+            first(),
+            map(res => res as Panne[])
+        ).toPromise();
     }
 
-    async updatePanne(id: number, panne: Panne){
-        return await this.panneRepository
-        .query('UPDATE Panne SET portique_id = ?, type_panne = ?, date_panne = ? WHERE panne_id = ?',
-        [panne.portique_id, panne.type_panne, panne.date_panne, id]);
+    async addPanne(panne: Panne) {
+        return await this.client.send({cmd: "AddPanne"}, panne).pipe(
+            first(),
+            map(res => res as Panne[])
+        ).toPromise();
     }
 
     async deletePanne(panneId: number) {
-        return await this.panneRepository.delete(panneId);
+        return await this.client.send({cmd: "DeletePanne"}, panneId).pipe(
+            first(),
+            map(res => res as Panne[])
+        ).toPromise();
     }
 
     async getPanne(panneId: number){
-        return await this.panneRepository.query('SELECT * FROM Panne WHERE panne_id = ' + panneId);
+        return await this.client.send({cmd: "GetPanne"}, panneId).pipe(
+            first(),
+            map(res => res as Panne[])
+        ).toPromise();
     }
 
-    async getAllPanne(){
-        return await this.panneRepository.query('SELECT * FROM Panne');
+    async getAllPanne(): Promise<Panne[]> {
+        return await this.client.send({cmd: "GetPannes"}, {}).pipe(
+            first(),
+            map(res => res as Panne[])
+            ).toPromise();
     }
 }

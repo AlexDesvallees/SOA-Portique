@@ -30,14 +30,6 @@ export class OperateurController {
         return this.OperateurService.addOperateur(OperateurDTO);
     }
     //#endregion
-
-    //#region Patch
-    @ApiUseTags('Operateurs')
-    @Put(':id')
-    fullUpdateOperateur(@Param('id') id : number, @Body() OperateurDTO : Operateur){
-        return this.OperateurService.fullUpdateOperateur(id, OperateurDTO);
-    }
-    //#endregion
     
     //region put
     @ApiUseTags('Operateurs')
@@ -50,7 +42,7 @@ export class OperateurController {
     //#region Delete
     @ApiUseTags('Operateurs')
     @Delete(':id')
-    deleteOperateur(@Param('id') id : string){
+    deleteOperateur(@Param('id') id : number){
         return this.OperateurService.deleteOperateur(id);
     }
     //endregion

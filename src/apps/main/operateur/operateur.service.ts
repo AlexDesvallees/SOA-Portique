@@ -1,40 +1,47 @@
 import { Injectable } from '@nestjs/common';
 import { OperateurDTO as Operateur } from "./operateur.entity";
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-
+import { Client, ClientProxy, Transport } from '@nestjs/microservices';
+import { first, map } from "rxjs/operators";
 @Injectable()
 export class OperateurService {
 
-    constructor(@InjectRepository(Operateur) private operateurRepository: Repository<Operateur>) { }
-
-    async fullUpdateOperateur(id:number, operateur: Operateur) {
-        return await this.operateurRepository
-        .query('UPDATE Personne SET nom = ?, prenom = ? WHERE operateur_id = ?',
-        [operateur.nom, operateur.prenom, id]);
-    }
+    @Client({ transport: Transport.TCP, options: {
+        port: Number.parseInt(process.env.microservicePort) || 3001
+    } })
+    client: ClientProxy;
 
     async updateOperateur(id: number, operateur: Operateur) {
-        return await this.operateurRepository
-        .query('UPDATE Personne SET nom = ?, prenom = ? WHERE operateur_id = ?',
-        [operateur.nom, operateur.prenom, id]);
+        return await this.client.send({cmd: "UpdateOperateur"}, {id, operateur}).pipe(
+            first(),
+            map(res => res as Operateur[])
+        ).toPromise();
     }
 
     async addOperateur(operateur: Operateur) {
-        return await this.operateurRepository
-        .query('INSERT INTO Operateur (nom, prenom) VALUES (?,?)',
-        [operateur.nom, operateur.prenom]);
+        return await this.client.send({cmd: "AddOperateur"}, operateur).pipe(
+            first(),
+            map(res => res as Operateur[])
+        ).toPromise();
     }
 
-    async deleteOperateur(id: string) {
-        return this.operateurRepository.delete(id);
+    async deleteOperateur(operateurId: number) {
+        return await this.client.send({cmd: "DeleteOperateur"}, operateurId).pipe(
+            first(),
+            map(res => res as Operateur[])
+        ).toPromise();
     }
 
-    async getOperateur(id: number){
-        return await this.operateurRepository.query('SELECT * FROM Operateur WHERE operateur_id = ' + id)
+    async getOperateur(operateurId: number){
+        return await this.client.send({cmd: "GetOperateur"}, operateurId).pipe(
+            first(),
+            map(res => res as Operateur[])
+        ).toPromise();
     }
 
-    async getAllOperateur(){
-        return await this.operateurRepository.query('SELECT * FROM Operateur');
+    async getAllOperateur(): Promise<Operateur[]> {
+        return await this.client.send({cmd: "GetOperateurs"}, {}).pipe(
+            first(),
+            map(res => res as Operateur[])
+            ).toPromise();
     }
 }
