@@ -3,6 +3,7 @@ import { MessagePattern } from '@nestjs/microservices';
 import { PortiqueService } from './portique.service';
 import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Patch } from '@nestjs/common';
 import { ApiUseTags, ApiImplicitBody, ApiBearerAuth } from '@nestjs/swagger';
+import { Observable } from 'rxjs';
 
 @Controller("/portiques")
 export class PortiqueController {
@@ -11,8 +12,7 @@ export class PortiqueController {
 
     @MessagePattern({ cmd: "GetPortique"})
     @ApiUseTags('Portique')
-    @Get()
-    public GetPortique(@Body() portiqueDTO : PortiqueDTO){
+    GetPortique() : Promise<PortiqueDTO[]>{
         return this.portiqueService.getPortiques();
     }
 }

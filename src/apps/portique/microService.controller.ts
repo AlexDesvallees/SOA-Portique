@@ -1,6 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { MicroServiceService } from './microService.service';
-import { ApiUseTags } from '@nestjs/swagger';
 
 @Controller()
 export class MicroServiceController {

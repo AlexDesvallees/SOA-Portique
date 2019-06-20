@@ -1,8 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { PortiqueDTO as Portique } from "./portique.entity";
-
+import { Client, ClientProxy, Transport } from '@nestjs/microservices';
+import { first, map } from "rxjs/operators";
 @Injectable()
 export class PortiqueService {
+
+    @Client({ transport: Transport.TCP })
+    client: ClientProxy;
+
     fullUpdatePortique(portiqueDTO: Portique) {
         return 'This call returns \PATCH request';
     }
@@ -23,7 +28,10 @@ export class PortiqueService {
             '_id': id
         })
     }
-    getAllPortique(): string {
-        return 'This call returns \GET_All request';
+    getAllPortique(): Promise<Portique[]> {
+        return this.client.send({cmd: "GetPortique"}, {}).pipe(
+            first(),
+            map(res=> res as Portique[])
+            ).toPromise();
     }
 }
