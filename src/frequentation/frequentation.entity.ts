@@ -1,6 +1,6 @@
 import { ApiModelProperty } from "@nestjs/swagger";
 import { UserDTO } from "../users/user.entity";
-import { PortiqueDTO } from "../portique/portique";
+import { PortiqueDTO } from "../portique/portique.entity";
 
 /**
  * WARNING - A revoir avec table de fait etc...

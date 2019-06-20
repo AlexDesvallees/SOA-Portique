@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Put, Patch } from '@nestjs/common';
 import { CompteService } from "./compte.service";
-import { CompteDTO as Compte } from "./compte";
+import { CompteDTO as Compte } from "./compte.entity";
 import { ApiUseTags } from '@nestjs/swagger';
 
 @Controller("/Comptes")

@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Put, Patch } from '@nestjs/common';
 import { PanneService } from "./panne.service";
-import { PanneDTO as Panne } from "./panne";
+import { PanneDTO as Panne } from "./panne.entity";
 import { ApiUseTags } from '@nestjs/swagger';
 
 @Controller("/Pannes")

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FrequentationDTO as Frequentation } from "./frequentation";
+import { FrequentationDTO as Frequentation } from "./frequentation.entity";
 
 @Injectable()
 export class FrequentationService {

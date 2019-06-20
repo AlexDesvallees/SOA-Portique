@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PortiqueDTO as Portique } from "./portique";
+import { PortiqueDTO as Portique } from "./portique.entity";
 
 @Injectable()
 export class PortiqueService {

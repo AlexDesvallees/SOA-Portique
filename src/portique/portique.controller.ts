@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Put, Patch } from '@nestjs/common';
 import { PortiqueService } from "./portique.service";
-import { PortiqueDTO as Portique } from "./portique";
+import { PortiqueDTO as Portique } from "./portique.entity";
 import { ApiUseTags } from '@nestjs/swagger';
 
 @Controller("/portiques")

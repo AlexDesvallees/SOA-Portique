@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Put, Patch } from '@nestjs/common';
 import { FrequentationService } from "./frequentation.service";
-import { FrequentationDTO as Frequentation } from "./frequentation";
+import { FrequentationDTO as Frequentation } from "./frequentation.entity";
 import { ApiUseTags } from '@nestjs/swagger';
 
 @Controller("/Frequentations")

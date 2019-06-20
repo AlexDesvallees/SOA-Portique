@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ProgrammePortiqueDTO as Programme_Portique } from "./programme_portique";
+import { ProgrammePortiqueDTO as Programme_Portique } from "./programme_portique.entity";
 
 @Injectable()
 export class Programme_PortiqueService {
