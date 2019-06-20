@@ -1,5 +1,5 @@
 {
-    "apps": {
+    "apps": [{
         "name": "ynov-api-dev",
         "script": "npm",
         "args": [
@@ -10,5 +10,5 @@
             "port": "3000",
             "production": "true"
         }
-    }
+    }]
 }

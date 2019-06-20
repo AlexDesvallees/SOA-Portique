@@ -14,7 +14,7 @@ import { PortiqueModule } from './portique/portique.module';
           "username": "root",
           "password": "",
           "database": "soa_portique",
-          "entities": ["src/users/user.entity.ts"],
+          "entities": ["./**/*.entity.ts"],
           "synchronize": true
       }),
     PortiqueModule
