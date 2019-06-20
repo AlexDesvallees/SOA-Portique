@@ -7,7 +7,9 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class PortiqueService {
 
-    @Client({ transport: Transport.TCP })
+    @Client({ transport: Transport.TCP, options: {
+        port: Number.parseInt(process.env.microservicePort) || 3001
+    } })
     client: ClientProxy;
 
     fullUpdatePortique(portiqueDTO: Portique) {
@@ -38,6 +40,9 @@ export class PortiqueService {
         return await this.portiqueRepository.query('SELECT * FROM Portique WHERE portique_id = ' + portiqueId);
     }
     getAllPortique(): Promise<Portique[]> {
+        console.log("On arrive bien dans le send");
+        console.log(this.client);
+
         return this.client.send({cmd: "GetPortique"}, {}).pipe(
             first(),
             map(res=> res as Portique[])

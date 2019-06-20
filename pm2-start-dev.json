@@ -1,6 +1,6 @@
 {
     "apps": [{
-        "name": "ynov-api-dev",
+        "name": "ynov-api-dev-main",
         "script": "npm",
         "args": [
             "run",
@@ -8,6 +8,19 @@
         ],
         "env": {
             "port": "3000",
+            "production": "true",
+            "microservicePort": "3001"
+        }
+    },
+    {
+        "name": "ynov-api-dev-microservice",
+        "script": "npm",
+        "args": [
+            "run",
+            "start:microservice"
+        ],
+        "env": {
+            "port": "3001",
             "production": "true"
         }
     }]
