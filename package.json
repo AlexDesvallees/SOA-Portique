@@ -2,6 +2,7 @@
   "name": "soa-portique",
   "version": "0.0.1",
   "description": "",
+  "repository": "https://github.com/AlexDesvallees/SOA-Portique",
   "author": "",
   "license": "MIT",
   "scripts": {
@@ -22,6 +23,7 @@
   "dependencies": {
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
+    "@nestjs/microservices": "^6.3.1",
     "@nestjs/platform-express": "^6.0.0",
     "@nestjs/swagger": "^3.0.2",
     "@nestjs/typeorm": "^6.1.2",
