@@ -2,8 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { PortiqueDTO as Portique } from "./portique.entity";
 import { Client, ClientProxy, Transport } from '@nestjs/microservices';
 import { first, map } from "rxjs/operators";
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 @Injectable()
 export class PortiqueService {
 
@@ -11,8 +9,6 @@ export class PortiqueService {
         port: Number.parseInt(process.env.microservicePort) || 3001
     } })
     client: ClientProxy;
-
-    constructor(@InjectRepository(Portique) private portiqueRepository: Repository<Portique>) { }
 
     async updatePortique(id: number, portique: Portique) {
         return await this.client.send({cmd: "UpdatePortique"}, {id, portique}).pipe(
@@ -41,8 +37,9 @@ export class PortiqueService {
             map(res => res as Portique[])
         ).toPromise();
     }
-    getAllPortique(): Promise<Portique[]> {
-        return this.client.send({cmd: "GetPortiques"}, {}).pipe(
+
+    async getAllPortique(): Promise<Portique[]> {
+        return await this.client.send({cmd: "GetPortiques"}, {}).pipe(
             first(),
             map(res => res as Portique[])
             ).toPromise();

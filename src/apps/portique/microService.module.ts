@@ -4,6 +4,7 @@ import { MicroServiceController } from './microService.controller';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PortiqueModule } from './portique/portique.module';
+import { ProgrammeModule } from './programme/programme.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(
@@ -17,7 +18,8 @@ import { PortiqueModule } from './portique/portique.module';
           "entities": ["./**/*.entity.ts"],
           "synchronize": true
       }),
-    PortiqueModule
+    PortiqueModule,
+    ProgrammeModule
   ],
   controllers: [MicroServiceController],
   providers: [MicroServiceService],

@@ -3,7 +3,7 @@ import { ProgrammeService } from "./programme.service";
 import { ProgrammeDTO as Programme } from "./programme.entity";
 import { ApiUseTags } from '@nestjs/swagger';
 
-@Controller("/Programmes")
+@Controller("/programmes")
 export class ProgrammeController {
     //#region Constructor
     constructor(private readonly programmeService: ProgrammeService) {}
@@ -28,14 +28,6 @@ export class ProgrammeController {
     @Post()
     addProgramme(@Body() ProgrammeDTO : Programme){
         return this.programmeService.addProgramme(ProgrammeDTO);
-    }
-    //#endregion
-
-    //#region Patch
-    @ApiUseTags('Programmes')
-    @Put(':id')
-    fullUpdateProgramme(@Param('id') id : number, @Body() ProgrammeDTO : Programme){
-        return this.programmeService.fullUpdateProgramme(id, ProgrammeDTO);
     }
     //#endregion
     

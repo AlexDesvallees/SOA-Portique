@@ -1,40 +1,45 @@
 import { Injectable } from '@nestjs/common';
 import { ProgrammeDTO as Programme } from "./programme.entity";
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-
+import { Client, ClientProxy, Transport } from '@nestjs/microservices';
+import { first, map } from "rxjs/operators";
 @Injectable()
 export class ProgrammeService {
 
-    constructor(@InjectRepository(Programme) private programmeRepository: Repository<Programme>) { }
-    
-    async fullUpdateProgramme(id: number, programme: Programme) {
-        return await this.programmeRepository
-        .query('UPDATE Programme SET numero_programme = ?, date_prog = ? WHERE programme_id = ?',
-        [programme.numero_programme, programme.date_prog, id]);
-    }
+    @Client({ transport: Transport.TCP })
+    client: ClientProxy;
 
     async updateProgramme(id: number, programme: Programme) {
-        return await this.programmeRepository
-        .query('UPDATE Programme SET date_prog = ?, numero_programme = ? WHERE programme_id = ?',
-        [programme.date_prog, programme.numero_programme, id]);
+        return await this.client.send({cmd: "UpdateProgramme"}, {id, programme}).pipe(
+            first(),
+            map(res => res as Programme[])
+        ).toPromise();
     }
 
     async addProgramme(programme: Programme) {
-        return await this.programmeRepository
-        .query('INSERT INTO Programme (numero_programme, date_prog) VALUES (?,?)',
-        [programme.numero_programme, programme.date_prog]);
+        return await this.client.send({cmd: "AddProgramme"}, programme).pipe(
+            first(),
+            map(res => res as Programme[])
+        ).toPromise();
     }
 
     async deleteProgramme(programmeId: number) {
-        return await this.programmeRepository.delete(programmeId);
+        return await this.client.send({cmd: "DeleteProgramme"}, programmeId).pipe(
+            first(),
+            map(res => res as Programme[])
+        ).toPromise();
     }
 
-    async getProgramme(programmeId: number) {
-        return await this.programmeRepository.query('SELECT * FROM Prgramme WHERE programme_id = ' + programmeId)
+    async getProgramme(programmeId: number){
+        return await this.client.send({cmd: "GetProgramme"}, programmeId).pipe(
+            first(),
+            map(res => res as Programme[])
+        ).toPromise();
     }
 
-    async getAllProgramme() {
-        return await this.programmeRepository.query('SELECT * FROM Programme');
+    async getAllProgramme(): Promise<Programme[]> {
+        return await this.client.send({cmd: "GetProgrammes"}, {}).pipe(
+            first(),
+            map(res => res as Programme[])
+            ).toPromise();
     }
 }
