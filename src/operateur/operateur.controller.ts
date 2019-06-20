@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query, Post, Body, Delete, UseGuards, SetMetadata, Put, Patch } from '@nestjs/common';
 import { OperateurService } from "./operateur.service";
-import { OperateurDTO as Operateur } from "./operateur";
+import { OperateurDTO as Operateur } from "./operateur.entity";
 import { ApiUseTags } from '@nestjs/swagger';
 
 @Controller("/Operateurs")

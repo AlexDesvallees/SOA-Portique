@@ -1,5 +1,5 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-import { OperateurDTO as Operateur } from "../operateur/operateur";
+import { OperateurDTO as Operateur } from "../operateur/operateur.entity";
 
 /**
  * DTO pour l'objet Portique

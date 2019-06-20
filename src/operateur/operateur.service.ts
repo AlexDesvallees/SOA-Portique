@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { OperateurDTO as Operateur } from "./operateur";
+import { OperateurDTO as Operateur } from "./operateur.entity";
 
 @Injectable()
 export class OperateurService {
