@@ -1,6 +1,6 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-import { ProgrammeDTO } from "src/programme/programme.entity";
-import { PortiqueDTO } from "src/portique/portique.entity";
+import { ProgrammeDTO } from "../programme/programme.entity";
+import { PortiqueDTO } from "../portique/portique.entity";
 
 /**
  * DTO pour l'objet ProgrammePortique

@@ -1,5 +1,5 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-import { PortiqueDTO } from "src/portique/portique.entity";
+import { PortiqueDTO } from "../portique/portique.entity";
 
 /**
  * DTO pour l'objet Panne

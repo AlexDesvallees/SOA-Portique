@@ -6,7 +6,7 @@
         "username": "root",
         "password": "",
         "database": "soa_portique",
-        "entities": ["src/*/*.entity.ts"],
+        "entities": ["src/*/*/*/*.entity.ts"],
         "synchronize": true
     }
 ]
