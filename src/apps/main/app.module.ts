@@ -12,10 +12,8 @@ import { FrequentationModule } from "./frequentation/frequentation.module";
 import { CompteModule } from "./compte/compte.module";
 //#endregion
 import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './auth-role.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Programme_PortiqueModule } from './l_programme_portique/programme_portique.module';
-// import { Connection } from 'typeorm';
 
 @Module({
   imports: [
@@ -31,10 +29,6 @@ import { Programme_PortiqueModule } from './l_programme_portique/programme_porti
     Programme_PortiqueModule
   ],
   controllers: [AppController],
-  providers: [AppService,
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard
-    }],
+  providers: [AppService],
 })
 export class AppModule {}
