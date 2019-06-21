@@ -33,18 +33,11 @@
     "@nestjs/swagger": "^3.0.2",
     "@nestjs/typeorm": "^6.1.2",
     "bcrypt": "^3.0.6",
-<<<<<<< HEAD
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.15",
     "mysql": "^2.17.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-=======
-    "mongoose": "^5.5.15",
-    "mysql": "^2.17.1",
-    "passport": "^0.4.0",
-    "passport-http-bearer": "^1.0.1",
->>>>>>> 8f17bb69baaa45a93b7f5ca3c87c00f033e7c1b5
     "raven": "^2.6.4",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
