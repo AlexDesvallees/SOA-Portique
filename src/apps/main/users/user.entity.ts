@@ -29,4 +29,16 @@ export class UserDTO {
   @ApiModelProperty()
   @Column()
   isBlocked: number; // Value in db = 0 || 1 pour false || true
+
+  @ApiModelProperty()
+  @Column({length: 100})
+  pass: string;
+
+  @ApiModelProperty()
+  @Column({length: 100})
+  passHash: string;
+
+  @ApiModelProperty()
+  @Column({length: 50})
+  username: string;
 }

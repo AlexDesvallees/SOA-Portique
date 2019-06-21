@@ -2,11 +2,11 @@
     "procedures": [
         {
             "name": "Lect_Personne",
-            "request": "SELECT * FROM soa_personne.Personne WHERE personne_id = ?"
+            "request": "SELECT nom, prenom, status_id, compte_id, isBlocked FROM Personne WHERE personne_id = ?"
         },
         {
             "name": "Lect_Liste_Personne",
-            "request": "SELECT * FROM Personne"
+            "request": "SELECT nom, prenom, status_id, compte_id, isBlocked FROM Personne"
         }
     ]
 }

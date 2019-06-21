@@ -15,6 +15,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth-role.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Programme_PortiqueModule } from './l_programme_portique/programme_portique.module';
+import { AuthModule } from './authentication/auth.module';
 // import { Connection } from 'typeorm';
 
 @Module({
