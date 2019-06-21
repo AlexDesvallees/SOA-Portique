@@ -5,7 +5,9 @@ import { first, map } from "rxjs/operators";
 @Injectable()
 export class ProgrammeService {
 
-    @Client({ transport: Transport.TCP })
+    @Client({ transport: Transport.TCP, options: {
+        port: Number.parseInt(process.env.microservicePort) || 3001
+    } })
     client: ClientProxy;
 
     async updateProgramme(id: number, programme: Programme) {
